@@ -1,2 +1,5 @@
 /Moon/obj/
 /.vs/
+/Moon/bin/
+/Moon/node_modules/
+/Moon/wwwroot/
