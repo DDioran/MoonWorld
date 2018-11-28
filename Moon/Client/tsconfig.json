@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    //"strict": true,
+    "lib": [ "es6", "dom" ],
+    "types": [ "webpack-env", "core-js" ]
+  },
+  "exclude": [ "bin", "node_modules" ],
+  "atom": { "rewriteTsconfig": false },
+  "compileOnSave": true
+}

@@ -11,35 +11,41 @@ module.exports = (env) => {
   const clientBundleOutputDir = './wwwroot';
   const config = {
     mode: !isDevBuild ? 'production':'development',
-    entry: "./src/js/index.ts",
+    entry: "./client/js/index.ts",
     stats: { modules: false },
     context: __dirname,
     resolve: { extensions: ['.js', '.ts'] },
     output: {
-      filename: !isDevBuild ? "js/[name].[chunkhash].js" : "js/[name].js",
+      filename: "js/[name].[chunkhash].js",
       path: path.join(__dirname, clientBundleOutputDir),
       publicPath: "/"
     },
     module: {
       rules: [
-        { test: /\.ts$/, use: isDevBuild ? 'awesome-typescript-loader?silent=true' : 'ts-loader' },
-        { test: /\.css$/, use: [MiniCssExtractPlugin.loader, "css-loader"] }
+        //{ test: /\.ts$/, use: isDevBuild ? 'awesome-typescript-loader?silent=true' : 'ts-loader' },
+        { test: /\.ts$/, use: 'ts-loader' },
+        { test: /\.css$/, use: [MiniCssExtractPlugin.loader, "css-loader"] },
+        //{ test: /\.css$/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize'] },
       ]
     },
     plugins: [
       new CheckerPlugin(),
-      new CleanWebpackPlugin(["wwwroot/*"]),
+      new CleanWebpackPlugin(["wwwroot/js/*"]),
+      new CleanWebpackPlugin(["wwwroot/css/*"]),
       new HtmlWebpackPlugin({
-        template: "./src/index.html"
+        template: "./client/index.html"
       }),
       new MiniCssExtractPlugin({
-        filename: !isDevBuild ? "css/[name].[chunkhash].css" : "css/[name].css"
+        filename: "css/[name].[chunkhash].css"
       }),
-      isDevBuild ? new webpack.SourceMapDevToolPlugin({
+      /*isDevBuild ? new webpack.SourceMapDevToolPlugin({
         filename: '[file].map',
-        moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]')
-      }) : new UglifyJsPlugin()
-    ]
+        //moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]')
+      }) : new UglifyJsPlugin()*/
+    ],
+    devtool: "source-map"
+    //devtool: false,
+    //watch: true
   };
   return config;
 };
