@@ -10,7 +10,7 @@ namespace Moon
   {
     public string Name;
     public int MobId;
-    public int ItemId; // Идентификатор моба по базе (фиксированный тип объекта)
+    public string ItemCode; // Идентификатор моба по базе (фиксированный тип объекта)
     public IMoonTarget Target;
     public MoonMobGroupType GroupType;
     public MoonMobState State;
@@ -45,6 +45,7 @@ namespace Moon
     public string PParam1;
     public double PParam2;
     public double PParam3;
+    public int DirectionView;
 
     public int QueueCode = -1;
     public double[] QueueCoords = null;
@@ -88,6 +89,7 @@ namespace Moon
       StoreMob = new MoonPoint(0, 0);
       Skills = null;
       Target = null;
+      DirectionView = 5;
       SkillState = SkillState.Await;
       CurrentSkillType = MoonSkillType.None;
       Debuffs = new MoonDebuffTable(this);
@@ -101,7 +103,7 @@ namespace Moon
     {
       this.GroupType = GroupType;
       this.Group = Group;
-      ItemId = this.GroupType.ItemId;
+      ItemCode = this.GroupType.ItemCode;
       Name = this.GroupType.Name;
       WalkSpeed = this.GroupType.WalkSpeed;
       RunSpeed = this.GroupType.RunSpeed;
@@ -252,14 +254,7 @@ namespace Moon
         DistMob = new MoonPoint(PParam2, PParam3);
         StoreRunMode = PParam1 == "r";
         CalculateMoveStates();
-        /*
-        Speed = WalkSpeed;
-        if (PParam1 == "r")
-          Speed = RunSpeed;
-        PInstructionAllTime = Math.Sqrt(PParam2 * PParam2 + PParam3 * PParam3) * 0.016 / this.Speed;
-        DeltaMob = new MoonPoint(PParam2 / PInstructionAllTime, PParam3 / PInstructionAllTime);
-        StoreMob = new MoonPoint(PointMob.X, PointMob.Y);
-        */
+        CalcDirectionView(PParam2, PParam3);
       }
       if (PInstruction == "s")
       {
@@ -270,9 +265,12 @@ namespace Moon
         {
           PParam2 = Target.X - PointMob.X;
           PParam3 = Target.Y - PointMob.Y;
+          CalcDirectionView(PParam2, PParam3);
         }
       }
+      PushToMap();
     }
+    // Изменение характеристик в зависимости от бафов/дебафов
     public void CalculateMoveStates()
     {
       Speed = StoreRunMode ? RunSpeed : WalkSpeed;
@@ -329,10 +327,7 @@ namespace Moon
         if (PInstruction == "p")
         {
           if (PInstructionTime >= PInstructionAllTime)
-          {
             NextInstruction();
-            if (PIndex == 0) PushToMap();
-          }
           return;
         }
         // Движемся в координаты
@@ -357,7 +352,6 @@ namespace Moon
               {
                 CurrentSkillType = MoonSkillType.None;
                 ProgramStart($"p.1");
-                PushToMap();
                 return;
               }
               else
@@ -370,7 +364,6 @@ namespace Moon
           {
             PointMob = new MoonPoint(StoreMob.X + PParam2, StoreMob.Y + PParam3);
             NextInstruction();
-            if (PIndex == 0) PushToMap();
             if(this is MoonPlayer && Target is MoonChest)
               // Подбежали к сундуку, расчет взятия дропа
               (Target as MoonChest).ShiftItems(this as MoonPlayer);
@@ -388,7 +381,6 @@ namespace Moon
             {
               CurrentSkillType = MoonSkillType.None;
               ProgramStart($"p.1");
-              PushToMap();
             }
             else
             {
@@ -481,7 +473,6 @@ namespace Moon
                 if (Target == null || skill.IsHeal)
                 {
                   ProgramStart($"p.1");
-                  PushToMap();
                   return;
                 }
                 // Дальнейшая атака автоатакой
@@ -674,6 +665,7 @@ namespace Moon
       info.Sprite.WalkAniSpeed = Sprite.WalkAniSpeed;
       info.Sprite.RunAniSpeed = Sprite.RunAniSpeed;
       info.Sprite.DeathAniSpeed = Sprite.DeathAniSpeed;
+      info.DirectionView = DirectionView;
       info.RespMobX = RespMob.X;
       info.RespMobY = RespMob.Y;
       info.PointMobX = PointMob.X;
@@ -688,8 +680,6 @@ namespace Moon
       info.Radius = Radius;
       info.MaxHP = MaxHP;
       info.HP = HP;
-      info.Program = Program;
-      info.PIndex = PIndex;
       info.PInstruction = PInstruction;
       info.PInstructionTime = PInstructionTime;
       info.PInstructionAllTime = PInstructionAllTime;
@@ -729,7 +719,6 @@ namespace Moon
       if (target == null || !target.IsAlive)
       {
         ProgramStart($"p.1");
-        PushToMap();
         return;
       }
       MobMoveTo(target, target.X, target.Y);
@@ -738,6 +727,7 @@ namespace Moon
     {
       x -= PointMob.X;
       y -= PointMob.Y;
+      CalcDirectionView(x, y);
       if (target is MoonChest || target is MoonNpc)
       {
         // Бежим до сундука или npc
@@ -748,7 +738,6 @@ namespace Moon
           y *= 1 - 40 / cr;
         }
         ProgramStart($"m.r.{(int)x}.{(int)y}");
-        PushToMap();
         return;
       }
       MoonSkill skill = Skills.GetSkill(CurrentSkillType);
@@ -762,15 +751,21 @@ namespace Moon
       if (r < skill.MaxDistance || skill.IsHeal)
       {
         ProgramStart($"s");
-        PushToMap();
       }
       else
       {
         x *= 1 - skill.MinDistance / r;
         y *= 1 - skill.MinDistance / r;
         ProgramStart($"m.r.{(int)x}.{(int)y}");
-        PushToMap();
       }
+    }
+    protected void CalcDirectionView(double x, double y) {
+      double px = Math.Abs(x), py = Math.Abs(y);
+      double ppx = px / py, ppy = py / px;
+      if (x < 0 && y < 0) if (px > py) this.DirectionView = (ppx) > 2 ? 6 : 7; else this.DirectionView = (ppy) > 2 ? 0 : 7;
+      if (x >= 0 && y < 0) if (px > py) this.DirectionView = (ppx) > 2 ? 2 : 1; else this.DirectionView = (ppy) > 2 ? 0 : 1;
+      if (x >= 0 && y >= 0) if (px > py) this.DirectionView = (ppx) > 2 ? 2 : 3; else this.DirectionView = (ppy) > 2 ? 4 : 3;
+      if (x < 0 && y >= 0) if (px > py) this.DirectionView = (ppx) > 2 ? 6 : 5; else this.DirectionView = (ppy) > 2 ? 4 : 5;
     }
 
     public void ResetFromMobTarget(MoonMob Mob)
@@ -786,7 +781,6 @@ namespace Moon
           m.QueueTarget = null;
           m.QueueCoords = null;
           m.ProgramStart("p.5,m.w.r,rs");
-          m.PushToMap();
         });
     }
 

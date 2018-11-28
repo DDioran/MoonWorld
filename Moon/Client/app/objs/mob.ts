@@ -27,6 +27,7 @@ export class MoonMob extends SObjectXY {
   public HP: number;
   public DirectionView: number;
   public CounterView: MCounter;
+  public CounterViewAction: any;
   public SpriteName: string;
   public SpriteOX: number;
   public SpriteOY: number;
@@ -36,8 +37,6 @@ export class MoonMob extends SObjectXY {
   public SkillAniSpeed: number;
   public DeathAniSpeed: number;
   public Sprite: JsPack;
-  public Program: Array<string>;
-  public PIndex: number;
   public PInstruction: string;
   public PInstructionTime: number;
   public PInstructionAllTime: number;
@@ -113,14 +112,13 @@ export class MoonMob extends SObjectXY {
     this.Radius = MobInfo.radius;
     this.MaxHP = MobInfo.maxHP;
     this.HP = MobInfo.hp;
-    this.Program = MobInfo.program;
-    this.PIndex = MobInfo.pIndex;
     this.PInstruction = MobInfo.pInstruction;
     this.PInstructionTime = MobInfo.pInstructionTime;
     this.PInstructionAllTime = MobInfo.pInstructionAllTime;
     this.PParam1 = MobInfo.pParam1;
     this.PParam2 = MobInfo.pParam2;
     this.PParam3 = MobInfo.pParam3;
+    this.DirectionView = MobInfo.directionView;
     this.Skills = MobInfo.skills;
     this.SkillState = MobInfo.skillState;
     this.CurrentSkillType = MobInfo.currentSkillType;
@@ -157,89 +155,48 @@ export class MoonMob extends SObjectXY {
           action = this.Sprite.sow.spr.attack;
         repeat = false;
       }
-      this.CalcDirection();
+      //this.CalcDirection();
       //anispeed = App.MoonGame.value_speed; //TEST
-      //if (key != this.PInstruction + "+" + this.PParam1 + "+" + this.DirectionView)
-      if (!(this.CounterView && this.CounterView.Count == action[this.DirectionView].length && this.CounterView.TimeSecs == anispeed && this.CounterView.Loop == repeat))
+      //if (!(this.CounterView && this.CounterView.Count == action[this.DirectionView].length && this.CounterView.TimeSecs == anispeed && this.CounterView.Loop == repeat)) {
+      if (!(this.CounterView && this.CounterViewAction == action && this.CounterView.TimeSecs == anispeed)) {
         this.CounterView = new MCounter(action[this.DirectionView].length, anispeed, repeat);
+        this.CounterViewAction = action;
+      }
     }
     if (this.State == MoonMobState.Dead) {
       action = this.Sprite.sow.spr.defeat;
-      if (!(this.CounterView && this.CounterView.Count == action[this.DirectionView].length && this.CounterView.TimeSecs == 1.0 && this.CounterView.Loop == false)) {
-        var anispeed = this.DeathAniSpeed;
+      var anispeed = this.DeathAniSpeed;
+      //if (!(this.CounterView && this.CounterView.Count == action[this.DirectionView].length && this.CounterView.TimeSecs == 1.0 && this.CounterView.Loop == false)) {
+      if (!(this.CounterView && this.CounterViewAction == action && this.CounterView.TimeSecs == anispeed)) {
         //anispeed = App.MoonGame.value_speed; //TEST
         this.CounterView = new MCounter(action[this.DirectionView].length, anispeed, false);
+        this.CounterViewAction = action;
       }
     }
   }
 
   public NextInstruction() {
-    this.PIndex++;
-    if (this.PIndex >= this.Program.length) {
-      // -- убираем цикл, будет стоять, если от сервера не пришло больше команд
-      //this.PIndex = 0;
-      if (!this.paused) {
-        this.paused = true;
-        var anispeed = this.IdleAniSpeed;
+    if (!this.paused) {
+      this.paused = true;
+      var anispeed = this.IdleAniSpeed;
+      if (!(this.CounterView && this.CounterViewAction == this.Sprite.sow.spr.paused && this.CounterView.TimeSecs == anispeed)) {
         //anispeed = App.MoonGame.value_speed; //TEST
         this.CounterView = new MCounter(this.Sprite.sow.spr.paused[this.DirectionView].length, anispeed, true);
-      }
-      return;
-      // --
-    }
-    this.paused = false;
-    var instr = this.Program[this.PIndex].split(".");
-    var prevInstruction = this.PInstruction;
-    var prevSpeed = this.Speed;
-    this.PInstruction = instr[0];
-    this.PInstructionTime = 0;
-    if (this.PInstruction == "p") {
-      this.PParam2 = parseInt(instr[1], 10);
-      this.PInstructionAllTime = this.PParam2;
-      if (prevInstruction != this.PInstruction) {
-        var anispeed = this.Speed;
-        //anispeed = App.MoonGame.value_speed; //TEST
-        this.CounterView = new MCounter(this.Sprite.sow.spr.paused[this.DirectionView].length, anispeed, true);
+        this.CounterViewAction = this.Sprite.sow.spr.paused;
       }
     }
-    if (this.PInstruction == "m") {
-      this.PParam1 = instr[1];
-      if (instr[2] == "r") {
-        this.PParam2 = this.respX - this.X;
-        this.PParam3 = this.respY - this.Y;
-      } else {
-        this.PParam2 = parseInt(instr[2], 10);
-        this.PParam3 = parseInt(instr[3], 10);
-      }
-      this.Speed = this.WalkSpeed;
-      if (this.PParam1 == "r")
-        this.Speed = this.RunSpeed;
-      this.PInstructionAllTime = Math.sqrt(this.PParam2 * this.PParam2 + this.PParam3 * this.PParam3) * 0.016 / this.Speed;
-      this.deltaX = this.PParam2 / this.PInstructionAllTime;
-      this.deltaY = this.PParam3 / this.PInstructionAllTime;
-      this.storeX = this.X;
-      this.storeY = this.Y;
-      var action = this.Sprite.sow.spr.paused;
-      if (this.PParam1 == "w") action = this.Sprite.sow.spr.walking;
-      if (this.PParam1 == "r") action = this.Sprite.sow.spr.running;
-      this.CalcDirection();
-      if (prevInstruction != this.PInstruction || prevSpeed != this.Speed) {
-        var anispeed = this.Speed;
-        //anispeed = App.MoonGame.value_speed; //TEST
-        this.CounterView = new MCounter(action[this.DirectionView].length, anispeed, true);
-      }
-    }
-
+    return;
+    // --
   }
 
-  protected CalcDirection() {
+  /*protected CalcDirection() {
     var px = Math.abs(this.PParam2), py = Math.abs(this.PParam3);
     var ppx = px / py, ppy = py / px;
     if (this.PParam2 < 0 && this.PParam3 < 0) if (px > py) this.DirectionView = (ppx) > 2 ? 6 : 7; else this.DirectionView = (ppy) > 2 ? 0 : 7;
     if (this.PParam2 >= 0 && this.PParam3 < 0) if (px > py) this.DirectionView = (ppx) > 2 ? 2 : 1; else this.DirectionView = (ppy) > 2 ? 0 : 1;
     if (this.PParam2 >= 0 && this.PParam3 >= 0) if (px > py) this.DirectionView = (ppx) > 2 ? 2 : 3; else this.DirectionView = (ppy) > 2 ? 4 : 3;
     if (this.PParam2 < 0 && this.PParam3 >= 0) if (px > py) this.DirectionView = (ppx) > 2 ? 6 : 5; else this.DirectionView = (ppy) > 2 ? 4 : 5;
-  }
+  }*/
 
   public Dispatcher(): void {
     if (this.Type == MoonMobType.Player) {

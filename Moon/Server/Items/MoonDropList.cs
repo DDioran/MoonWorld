@@ -29,71 +29,71 @@ namespace Moon
     {
       MoonApplication.Server.MoonDropList.Clear();
       // Тут надо грузить из json фалика инфу о дроп листах
-      MoonApplication.Server.MoonDropList[1] = new MoonDrop
+      MoonApplication.Server.MoonDropList["mob-test-1"] = new MoonDrop
       {
         Items = new List<MoonDropItem>
         {
           new MoonDropItem
           {
-            Item = MoonItem.GetItemById(1)
+            Item = MoonItem.GetItemByCode("test-drop")
           }
         }
       };
-      MoonApplication.Server.MoonDropList[2] = new MoonDrop
+      MoonApplication.Server.MoonDropList["bow-skel-1"] = new MoonDrop
       {
         Items = new List<MoonDropItem>
         {
           new MoonDropItem
           {
-            Item = MoonItem.GetItemById(1)
+            Item = MoonItem.GetItemByCode("test-drop")
           }
         }
       };
-      MoonApplication.Server.MoonDropList[3] = new MoonDrop
+      MoonApplication.Server.MoonDropList["skel-1"] = new MoonDrop
       {
         Items = new List<MoonDropItem>
         {
           new MoonDropItem
           {
-            Item = MoonItem.GetItemById(1)
+            Item = MoonItem.GetItemByCode("test-drop")
           }
         }
       };
-      MoonApplication.Server.MoonDropList[4] = new MoonDrop
+      MoonApplication.Server.MoonDropList["bow-skel-2-1"] = new MoonDrop
       {
         Items = new List<MoonDropItem>
         {
           new MoonDropItem
           {
-            Item = MoonItem.GetItemById(1)
+            Item = MoonItem.GetItemByCode("test-drop")
           }
         }
       };
-      MoonApplication.Server.MoonDropList[5] = new MoonDrop
+      MoonApplication.Server.MoonDropList["bow-skel-2-2"] = new MoonDrop
       {
         Items = new List<MoonDropItem>
         {
           new MoonDropItem
           {
-            Item = MoonItem.GetItemById(1)
+            Item = MoonItem.GetItemByCode("test-drop")
           }
         }
       };
-      MoonApplication.Server.MoonDropList[6] = new MoonDrop
+      MoonApplication.Server.MoonDropList["sword-skel-2"] = new MoonDrop
       {
         Items = new List<MoonDropItem>
         {
           new MoonDropItem
           {
-            Item = MoonItem.GetItemById(1)
+            Item = MoonItem.GetItemByCode("test-drop")
           }
         }
       };
     }
-    public static MoonDrop GetItemListById(int id)
+    public static MoonDrop GetItemListByCode(string code)
     {
-      if (!MoonApplication.Server.MoonDropList.ContainsKey(id)) return null;
-      return MoonApplication.Server.MoonDropList[id];
+      if (!MoonApplication.Server.MoonDropList.ContainsKey(code)) return null;
+      return MoonApplication.Server.MoonDropList[code];
     }
   }
 

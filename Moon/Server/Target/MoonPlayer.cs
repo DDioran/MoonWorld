@@ -183,6 +183,7 @@ namespace Moon
     {
       x -= PointMob.X;
       y -= PointMob.Y;
+      CalcDirectionView(x, y);
       if (PInstruction == "s" && SkillState == SkillState.Run)
       {
         QueueCode = -1;

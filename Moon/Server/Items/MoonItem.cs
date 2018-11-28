@@ -18,7 +18,7 @@ namespace Moon
   }
   public abstract class MoonItem
   {
-    public int ItemId; // Id вещи в базе
+    public string ItemCode; // Id вещи в базе
     public MoonGradeType GradeType;
     public MoonItemType ItemType;
     public decimal Cost;
@@ -35,9 +35,9 @@ namespace Moon
     {
       MoonApplication.Server.MoonItemList.Clear();
       // Тут надо грузить из json фалика инфу о всех предметах
-      MoonApplication.Server.MoonItemList[1] = new MoonItemCommon
+      MoonApplication.Server.MoonItemList["test-drop"] = new MoonItemCommon
       {
-        ItemId = 1,
+        ItemCode = "test-drop",
         Name = "Хрень всякая",
         Description = "Кусок всяческой хрени. Ещё свежий.",
         Cost = 100,
@@ -45,10 +45,10 @@ namespace Moon
         StackSize = 100        
       };
     }
-    public static MoonItem GetItemById(int id)
+    public static MoonItem GetItemByCode(string code)
     {
-      if (!MoonApplication.Server.MoonItemList.ContainsKey(id)) return null;
-      return MoonApplication.Server.MoonItemList[id];
+      if (!MoonApplication.Server.MoonItemList.ContainsKey(code)) return null;
+      return MoonApplication.Server.MoonItemList[code];
     }
     public MoonItem ShallowCopy()
     {

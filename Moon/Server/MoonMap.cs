@@ -49,7 +49,7 @@ namespace Moon
 
         MoonNpc npc;
         // ------------------------------------
-        npc = new MoonNpc(this, 1, 1300, 5500);
+        npc = new MoonNpc(this, "test-npc", 1300, 5500);
         npc.Name = "Отшельник";
         npc.Level = 50;
         npc.Sprite.SpriteName = "green-knight";

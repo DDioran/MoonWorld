@@ -84,14 +84,13 @@ namespace Moon
     public double Radius;
     public double MaxHP;
     public double HP;
-    public string[] Program;
-    public int PIndex;
     public string PInstruction;
     public double PInstructionTime;
     public double PInstructionAllTime;
     public string PParam1;
     public double PParam2;
     public double PParam3;
+    public int DirectionView;
     public List<MoonSkill> Skills;
     public SkillState SkillState;
     public int Level;

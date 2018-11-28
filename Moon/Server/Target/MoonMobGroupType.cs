@@ -15,7 +15,7 @@ namespace Moon
 
   public class MoonMobGroupType
   {
-    public int ItemId;
+    public string ItemCode;
     public string Name;
     public string SpriteName;
     public double SpriteOX = 0;
@@ -48,7 +48,7 @@ namespace Moon
   {
     public MMGT_Map1_TEST() : base()
     {
-      ItemId = 123456;
+      ItemCode = "mob-test-1";
       Name = "Тестовый моб";
       SpriteName = "skel";
       RespawnType = MoonMobRespawnType.Exact;
@@ -70,7 +70,7 @@ namespace Moon
   {
     public MMGT_Map1_SceletonUpLeft() : base()
     {
-      ItemId = 1;
+      ItemCode = "bow-skel-1";
       Name = "Слабый скелет лучник";
       SpriteName = "bow-skel";
       RespawnType = MoonMobRespawnType.Area;
@@ -91,7 +91,7 @@ namespace Moon
   {
     public MMGT_Map1_SceletonUpLeft2() : base()
     {
-      ItemId = 2;
+      ItemCode = "skel-1";
       Name = "Слабый скелет";
       SpriteName = "skel";
       RespawnType = MoonMobRespawnType.Area;
@@ -113,7 +113,7 @@ namespace Moon
   {
     public MMGT_Map1_SceletonUpRight() : base()
     {
-      ItemId = 3;
+      ItemCode = "bow-skel-2-1";
       Name = "Скелет лучник";
       SpriteName = "bow-skel";
       RespawnType = MoonMobRespawnType.Area;
@@ -134,7 +134,7 @@ namespace Moon
   {
     public MMGT_Map1_SceletonMiddle() : base()
     {
-      ItemId = 4;
+      ItemCode = "bow-skel-2-2";
       Name = "Скелет лучник";
       SpriteName = "bow-skel";
       RespawnType = MoonMobRespawnType.Area;
@@ -155,7 +155,7 @@ namespace Moon
   {
     public MMGT_Map1_SceletonMiddle2() : base()
     {
-      ItemId = 5;
+      ItemCode = "sword-skel-2";
       Name = "Скелет мечник";
       SpriteName = "sword-skel";
       RespawnType = MoonMobRespawnType.Area;
@@ -176,7 +176,7 @@ namespace Moon
   {
     public MMGT_Map1_SceletonDownLeft() : base()
     {
-      ItemId = 6;
+      ItemCode = "terrible-bow-skel-3";
       Name = "Ужасный скелет лучник";
       SpriteName = "bow-skel";
       RespawnType = MoonMobRespawnType.Area;
@@ -198,7 +198,7 @@ namespace Moon
   {
     public MMGT_Map1_ZombieBossLeft() : base()
     {
-      ItemId = 7;
+      ItemCode = "pink-zombie-5";
       Name = "Восставший ЗОМБИ";
       SpriteName = "pink-zombie";
       RespawnType = MoonMobRespawnType.Exact;

@@ -7,10 +7,10 @@ namespace Moon
   public class MoonNpc : MoonMob
   {
     public MoonMap Map;
-    public MoonNpc(MoonMap Map, int NpcId, double X, double Y) : base()
+    public MoonNpc(MoonMap Map, string NpcCode, double X, double Y) : base()
     {
       this.Map = Map;
-      ItemId = NpcId;
+      ItemCode = NpcCode;
       PointMob = new MoonPoint(X, Y);
     }
     protected override MoonObjectType GetObjectType()

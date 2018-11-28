@@ -109,7 +109,7 @@ namespace Moon
     public static void Appearance(MoonMob Mob)
     {
       // Тут надо сделать выпадение пвп наград из игроков
-      MoonDrop drop = MoonDrop.GetItemListById(Mob.ItemId);
+      MoonDrop drop = MoonDrop.GetItemListByCode(Mob.ItemCode);
       if (drop == null) return;
       List<MoonItem> items = drop.Items
         .Where(i => i.Chance > MoonApplication.Random.NextDouble())

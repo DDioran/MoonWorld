@@ -122,14 +122,13 @@ export class ClientInfo {
   public radius: number;
   public maxHP: number;
   public hp: number;
-  public program: Array<string>;
-  public pIndex: number;
   public pInstruction: string;
   public pInstructionTime: number;
   public pInstructionAllTime: number;
   public pParam1: string;
   public pParam2: number;
   public pParam3: number;
+  public directionView: number;
   public skills: Array<SkillInfo>;
   public skillState: SkillState;
   public currentSkillType: MoonSkillType;

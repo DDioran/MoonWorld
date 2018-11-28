@@ -190,8 +190,8 @@ namespace Moon
     public List<MoonPlayer> MoonPlayers;
     public MoonObjectList MoonObjects;
     public List<ClientInfo> TriggerList;
-    public Dictionary<int, MoonItem> MoonItemList;
-    public Dictionary<int, MoonDrop> MoonDropList;
+    public Dictionary<string, MoonItem> MoonItemList;
+    public Dictionary<string, MoonDrop> MoonDropList;
     public MoonDataBase Db;
     private Timer loopTimer;
     private DateTime lastTime;
@@ -211,8 +211,8 @@ namespace Moon
       MoonMaps = new List<MoonMap>();
       MoonPlayers = new List<MoonPlayer>();
       MoonObjects = new MoonObjectList();
-      MoonItemList = new Dictionary<int, MoonItem>();
-      MoonDropList = new Dictionary<int, MoonDrop>();
+      MoonItemList = new Dictionary<string, MoonItem>();
+      MoonDropList = new Dictionary<string, MoonDrop>();
       Db = new MoonDataBase();
     }
 
