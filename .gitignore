@@ -2,4 +2,7 @@
 /.vs/
 /Moon/bin/
 /Moon/node_modules/
-/Moon/wwwroot/
+/Moon/wwwroot/index.html
+/Moon/wwwroot/css
+/Moon/wwwroot/js
+
