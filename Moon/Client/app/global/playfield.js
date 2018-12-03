@@ -31,6 +31,7 @@ var MoonPlayField = /** @class */ (function (_super) {
         _this.layerZero = [];
         _this.cursor = { x: 0, y: 0 };
         _this.MessageBox = null;
+        _this.QuestPanel = null;
         app_1.App.Field = _this;
         _this.x = 0;
         _this.y = 0;

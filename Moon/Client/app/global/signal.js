@@ -66,7 +66,13 @@ var MoonSignal = /** @class */ (function () {
             callback(response);
     };
     MoonSignal.SendNpcTalk = function (info) {
-        (new quest_1.QuestPanel(mob_1.MoonMobList.FindMobByCode(info.itemCode), info)).Activate();
+        if (app_1.App.Field.QuestPanel) {
+            app_1.App.Field.QuestPanel.Hide();
+            app_1.App.Field.QuestPanel.Deactivate();
+            app_1.App.Field.QuestPanel.SelfRemove();
+        }
+        app_1.App.Field.QuestPanel = new quest_1.QuestPanel(mob_1.MoonMobList.FindMobByCode(info.itemCode), info);
+        app_1.App.Field.QuestPanel.Activate();
     };
     MoonSignal.RegisterSignalREvents = function () {
         app_1.App.Hub.Hub.onclose(function () {

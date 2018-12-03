@@ -477,6 +477,11 @@ export class MControl {
   protected OnDeactivate() {
   }
 
+  public SelfRemove() {
+    if (this.parent)
+      this.parent.controls.Remove(this);
+  }
+
 }
 export class ControlCollection {
   protected masterControl: MControl;

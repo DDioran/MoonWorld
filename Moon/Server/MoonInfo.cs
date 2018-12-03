@@ -9,13 +9,13 @@ namespace Moon
   public enum MoonMobState
   {
     Await = 0,
-    Alive = 1,
-    Dead = 2
+    Alive = 1,    
+    Dead = 2 
   }
 
-  public enum ChatType
+  public enum ChatType  
   {
-    TabAll,
+    TabAll, 
     TabCommon,
     TabFight,
     TabGroup

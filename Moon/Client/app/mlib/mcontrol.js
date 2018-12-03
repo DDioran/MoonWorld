@@ -544,6 +544,10 @@ var MControl = /** @class */ (function () {
     };
     MControl.prototype.OnDeactivate = function () {
     };
+    MControl.prototype.SelfRemove = function () {
+        if (this.parent)
+            this.parent.controls.Remove(this);
+    };
     return MControl;
 }());
 exports.MControl = MControl;

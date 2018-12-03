@@ -190,3 +190,32 @@ html, body {
     border-top: solid 1px rgba(250,250,200,0.6);
     border-bottom: solid 1px rgba(250,250,200,0.6);
   }
+
+.m-context-panel-select {
+  border-top: solid 1px rgba(250,250,200,0);
+  border-bottom: solid 1px rgba(250,250,200,0);
+  padding: 2px;
+  padding-left: 8px;
+}
+
+  .m-context-panel-select:hover {
+    border-top: solid 1px rgba(250,250,200,0.6);
+    border-bottom: solid 1px rgba(250,250,200,0.6);
+    background-color: rgba(255,255,255,0.2);
+  }
+
+.quest-main-award {
+  display: table-cell;
+  margin-left: 6px;
+  width: 90px;
+}
+
+.quest-main-award-value {
+  display: table-cell;
+  width: 60px;
+  text-align: right;
+}
+
+.hide {
+  display: none;
+}

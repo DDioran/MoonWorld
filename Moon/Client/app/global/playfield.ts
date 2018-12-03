@@ -43,6 +43,8 @@ export class MoonPlayField extends MControl {
 
   public UnderCursor: MoonMob | MoonChest;
 
+  public QuestPanel: QuestPanel = null;
+
   constructor() {
     super();
     App.Field = this;

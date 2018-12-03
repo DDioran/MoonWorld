@@ -68,7 +68,13 @@ export abstract class MoonSignal {
   }
 
   public static SendNpcTalk(info: NpcTalkInfo) {
-    (new QuestPanel(MoonMobList.FindMobByCode(info.itemCode), info)).Activate();
+    if (App.Field.QuestPanel) {
+      App.Field.QuestPanel.Hide();
+      App.Field.QuestPanel.Deactivate();
+      App.Field.QuestPanel.SelfRemove();
+    }
+    App.Field.QuestPanel = new QuestPanel(MoonMobList.FindMobByCode(info.itemCode), info);
+    App.Field.QuestPanel.Activate();
   }
 
 
