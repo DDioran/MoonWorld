@@ -5,7 +5,7 @@ import { MChatType } from '../main/chat';
 import { MMessageBox, MessageBoxButton } from '../ui/mmessagebox';
 import { ChestInfo, MoonChestList, MoonChest } from '../objs/chest';
 import { ConnectionLostForm } from '../forms/connlost';
-import { ClientInfo, NpcTalkInfo } from '../service/moon-info';
+import { ClientInfo, NpcTalkInfo } from '../service/info';
 import { QuestPanel } from '../panels/quest';
 
 export abstract class MoonSignal {

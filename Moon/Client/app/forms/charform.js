@@ -25,7 +25,8 @@ var playerdata_1 = require("../info/playerdata");
 var mcontrol_1 = require("../mlib/mcontrol");
 var mcharbutton_1 = require("../ui/mcharbutton");
 var app_1 = require("../global/app");
-var moon_info_1 = require("../service/moon-info");
+var info_1 = require("../service/info");
+var response_1 = require("../service/response");
 var CharacterForm = /** @class */ (function (_super) {
     __extends(CharacterForm, _super);
     function CharacterForm() {
@@ -39,7 +40,7 @@ var CharacterForm = /** @class */ (function (_super) {
             _this.CharacterInfo = _this.PlayerData.CharacterList[0];
         _this.win = new mwindow_1.MWindow();
         _this.win.Text = "Выбор персонажа";
-        _this.win.Font = "32px Roboto-Bold";
+        _this.win.Font = "32px CoreRhino-Regular";
         _this.win.Width = 1100;
         _this.win.Height = 600;
         _this.win.Align = mcontrol_1.MAlign.Center;
@@ -71,7 +72,7 @@ var CharacterForm = /** @class */ (function (_super) {
         _this.bcreatenew = new mfixbutton_1.MFixButton();
         _this.bcreatenew.Align = mcontrol_1.MAlign.Center;
         _this.bcreatenew.PackHolderNames = ["sel_add_char_button", "sel_add_char_button_hover", "sel_add_char_button_push"];
-        _this.bcreatenew.Font = "18px Roboto";
+        _this.bcreatenew.Font = "18px CoreRhino-Regular";
         _this.bcreatenew.Text = "CREATE CHARACTER";
         _this.bcreatenew.TextMarginLeft = 24;
         _this.bcreatenew.MouseClick = function (s, e) {
@@ -87,28 +88,28 @@ var CharacterForm = /** @class */ (function (_super) {
         var fmg = fm.CreateSelectedGroup();
         fm.X = 20;
         fm.Y = 20;
-        fm.ClassType = moon_info_1.PlayerClassType.Knight;
+        fm.ClassType = info_1.PlayerClassType.Knight;
         _this.pnew.Controls.Add(fm);
         _this.medals.push(fm);
         fm = new mmedalbutton_1.MMedalButton();
         fm.Add2SelectedGroup(fmg);
         fm.X = 200;
         fm.Y = 20;
-        fm.ClassType = moon_info_1.PlayerClassType.Mage;
+        fm.ClassType = info_1.PlayerClassType.Mage;
         _this.pnew.Controls.Add(fm);
         _this.medals.push(fm);
         fm = new mmedalbutton_1.MMedalButton();
         fm.Add2SelectedGroup(fmg);
         fm.X = 380;
         fm.Y = 20;
-        fm.ClassType = moon_info_1.PlayerClassType.Archer;
+        fm.ClassType = info_1.PlayerClassType.Archer;
         _this.pnew.Controls.Add(fm);
         _this.medals.push(fm);
         fm = new mmedalbutton_1.MMedalButton();
         fm.Add2SelectedGroup(fmg);
         fm.X = 560;
         fm.Y = 20;
-        fm.ClassType = moon_info_1.PlayerClassType.Priest;
+        fm.ClassType = info_1.PlayerClassType.Priest;
         _this.pnew.Controls.Add(fm);
         _this.medals.push(fm);
         _this.namelabel = new mlabel_1.MLabel();
@@ -189,7 +190,7 @@ var CharacterForm = /** @class */ (function (_super) {
         _this.charLabel.Width = _this.pnew.Width;
         _this.charLabel.Align = mcontrol_1.MAlign.Center;
         _this.charLabel.TextAlign = mcontrol_1.MAlign.Center;
-        _this.charLabel.Font = "32px RobotoBold";
+        _this.charLabel.Font = "32px CoreRhino-Bold";
         _this.charLabel.Text = "---";
         _this.pstart.Controls.Add(_this.charLabel);
         var start = new mfixbutton_1.MFixButton();
@@ -210,7 +211,7 @@ var CharacterForm = /** @class */ (function (_super) {
     }
     CharacterForm.prototype.CreateCharacter = function () {
         var _this = this;
-        var moonChar = new moon_info_1.MoonChar();
+        var moonChar = new response_1.MoonChar();
         moonChar.userGuid = app_1.App.UserGuid;
         moonChar.name = this.charName.Text.trim();
         moonChar.class = this.medals[0].SelectedGroup.Selected.ClassType;

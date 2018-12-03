@@ -1,6 +1,6 @@
 ﻿import { MCounter } from "../mlib/mcounter";
 import { SObjectXY, SObjectList } from "../mlib/sobject";
-import { MoonMobType, PlayerClassType, MoonMobState, MoonObjectType, SkillInfo, SkillState, MoonSkillType, MoonDebuffTable, PartyInfo, ClientInfo, ClientInfoType, PlayerInfo, QuestNpcInfo } from "../service/moon-info";
+import { MoonMobType, PlayerClassType, MoonMobState, MoonObjectType, SkillInfo, SkillState, MoonSkillType, MoonDebuffTable, PartyInfo, ClientInfo, ClientInfoType, PlayerInfo, QuestNpcInfo } from "../service/info";
 import { JsPack } from "../global/resx";
 import { App } from "../global/app";
 import { Gpx } from "../mlib/mgfx";
@@ -269,10 +269,10 @@ export class MoonMob extends SObjectXY {
       py -= this.SpriteOY;
 
       var color = "yellow";
-      var font = "11px Roboto";
+      var font = "11px CoreRhino-Regular";
       if (this.Type == MoonMobType.Npc) {
         var color = "#ccff88";
-        var font = "12px Roboto";
+        var font = "12px CoreRhino-Regular";
       }
       var width = Gpx.MeasureText(this.Name, font).width;
       Gpx.Text(color, this.Name, px + spr.cx - width / 2, py + spr.cy - 45, font);
@@ -285,7 +285,7 @@ export class MoonMob extends SObjectXY {
         if (npcInfo && (npcInfo.offer || npcInfo.complete)) {
           var qText = `${npcInfo.offer ? '!' : ''}${npcInfo.complete ? '?' : ''}`;
           width = Gpx.MeasureText(qText, font).width;
-          Gpx.Text("yellow", qText, px + spr.cx - width / 2, py + spr.cy - 45 - 16, "24px Roboto-Bold");
+          Gpx.Text("yellow", qText, px + spr.cx - width / 2, py + spr.cy - 45 - 16, "24px CoreRhino-Bold");
         }
       }
     }

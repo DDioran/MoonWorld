@@ -63,7 +63,7 @@ var MoonChest = /** @class */ (function (_super) {
         var px = Math.floor(-app_1.App.Field.playerx + app_1.App.Field.cx + this.X);
         var py = Math.floor(-app_1.App.Field.playery + app_1.App.Field.cy + this.Y);
         if (this.State == ChestState.Restricted || this.State == ChestState.Available) {
-            var font = "11px Roboto";
+            var font = "11px CoreRhino-Regular";
             var width = mgfx_1.Gpx.MeasureText("Сундук", font).width;
             mgfx_1.Gpx.Text("Yellow", "Сундук", px - width / 2 + 4, py - 16, font);
         }

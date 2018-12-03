@@ -17,7 +17,7 @@ var mphpanel_1 = require("../mlib/mphpanel");
 var mob_1 = require("../objs/mob");
 var mcontextmenu_1 = require("../ui/mcontextmenu");
 var app_1 = require("../global/app");
-var moon_info_1 = require("../service/moon-info");
+var info_1 = require("../service/info");
 var mgfx_1 = require("../mlib/mgfx");
 var MPartyPlayer = /** @class */ (function (_super) {
     __extends(MPartyPlayer, _super);
@@ -42,15 +42,15 @@ var MPartyPlayer = /** @class */ (function (_super) {
         mgfx_1.Gpx.DrawImageExactWH(pSpr.img, this.gx, this.gy, pSpr.img.width, pSpr.img.height, pSpr.img.width * ration, pSpr.img.height * ration);
         var col1 = "#0F9FFF";
         var col2 = "#0D7DDD";
-        if (this.Player.ClassType == moon_info_1.PlayerClassType.Archer) {
+        if (this.Player.ClassType == info_1.PlayerClassType.Archer) {
             col1 = "#FFFF00";
             col2 = "#DDDD00";
         }
-        if (this.Player.ClassType == moon_info_1.PlayerClassType.Knight) {
+        if (this.Player.ClassType == info_1.PlayerClassType.Knight) {
             col1 = "#CCCCCC";
             col2 = "#AAAAAA";
         }
-        if (this.Player.ClassType == moon_info_1.PlayerClassType.Priest) {
+        if (this.Player.ClassType == info_1.PlayerClassType.Priest) {
             col1 = "#FFEEDD";
             col2 = "#DDBBAA";
         }
@@ -58,15 +58,15 @@ var MPartyPlayer = /** @class */ (function (_super) {
         mgfx_1.Gpx.FillRect("#00DD00", this.gx + 70.5 * ration, this.gy + 35.5 * ration, (145 * this.Player.HP / this.Player.MaxHP) * ration, 5 * ration);
         mgfx_1.Gpx.FillRect(col1, this.gx + 70.5 * ration, this.gy + 47.5 * ration, 145 * ration, 8 * ration);
         mgfx_1.Gpx.FillRect(col2, this.gx + 70.5 * ration, this.gy + 54.5 * ration, 145 * ration, 5 * ration);
-        mgfx_1.Gpx.Text(this.Player.Active ? "Yellow" : "#c0c0c0", ((this.Player.Party && this.Player.Party.leader == this.Player.PlayerId) ? "* " : "") + this.Player.Name, this.gx + 70 * ration, this.gy + 21 * ration, mfnt + "px Roboto");
-        mgfx_1.Gpx.Text("Yellow", this.Player.Level.toFixed(0), this.gx + 45 * ration, this.gy + 58 * ration, bfnt + "px Roboto");
+        mgfx_1.Gpx.Text(this.Player.Active ? "Yellow" : "#c0c0c0", ((this.Player.Party && this.Player.Party.leader == this.Player.PlayerId) ? "* " : "") + this.Player.Name, this.gx + 70 * ration, this.gy + 21 * ration, mfnt + "px CoreRhino-Regular");
+        mgfx_1.Gpx.Text("Yellow", this.Player.Level.toFixed(0), this.gx + 45 * ration, this.gy + 58 * ration, bfnt + "px CoreRhino-Regular");
         mgfx_1.Gpx.FillRect("#FFFF00", this.gx + 8.5 * ration, this.gy + 66.3 * ration, (210 * this.Player.Exp / this.Player.MaxExp) * ration, 0.7 * ration);
         var text = this.Player.HP.toFixed(0) + "/" + this.Player.MaxHP.toFixed(0);
-        var width = mgfx_1.Gpx.MeasureText(text, "14px Roboto").width;
-        mgfx_1.Gpx.Text2("White", "Black", text, this.gx + (70 + (145 - width) / 2) * ration, this.gy + 39 * ration, sfnt + "px Roboto");
+        var width = mgfx_1.Gpx.MeasureText(text, "14px CoreRhino-Regular").width;
+        mgfx_1.Gpx.Text2("White", "Black", text, this.gx + (70 + (145 - width) / 2) * ration, this.gy + 39 * ration, sfnt + "px CoreRhino-Regular");
         text = "100/100";
-        width = mgfx_1.Gpx.MeasureText(text, "14px Roboto").width;
-        mgfx_1.Gpx.Text2("White", "Black", text, this.gx + (70 + (145 - width) / 2) * ration, this.gy + 58 * ration, sfnt + "px Roboto");
+        width = mgfx_1.Gpx.MeasureText(text, "14px CoreRhino-Regular").width;
+        mgfx_1.Gpx.Text2("White", "Black", text, this.gx + (70 + (145 - width) / 2) * ration, this.gy + 58 * ration, sfnt + "px CoreRhino-Regular");
     };
     MPartyPlayer.prototype.OnPropagateMouseDown = function (Event) {
         Event.Propagate = false;
@@ -105,7 +105,7 @@ var MPartyPlayer = /** @class */ (function (_super) {
             }
         }
         if (Event.Button == 0)
-            app_1.App.Hub.PlayerSelectTo(app_1.App.PlayerGuid, moon_info_1.MoonObjectType.Mob, this.Player.MobId, 2);
+            app_1.App.Hub.PlayerSelectTo(app_1.App.PlayerGuid, info_1.MoonObjectType.Mob, this.Player.MobId, 2);
     };
     return MPartyPlayer;
 }(mphpanel_1.MPlaceHolderPanel));

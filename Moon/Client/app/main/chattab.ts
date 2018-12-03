@@ -18,8 +18,8 @@ export class MChatTab extends MPlaceHolderPanel {
     if (this.mouseHover && !this.Selected)
       Gpx.FillRect("rgba(255,255,255,0.2)", this.gx, this.gy, this.width, this.height);
     Gpx.DrawRect("rgba(255,255,200,0.6)", this.gx, this.gy, this.width, this.height);
-    var width = Gpx.MeasureText(this.text, "16px Roboto").width;
-    Gpx.TText("Yellow", this.text, this.gx + (this.width - width) / 2, this.gy + 2, "15px Roboto");
+    var width = Gpx.MeasureText(this.text, "16px CoreRhino-Regular").width;
+    Gpx.TText("Yellow", this.text, this.gx + (this.width - width) / 2, this.gy + 2, "15px CoreRhino-Regular");
   }
 
   protected OnPropagateMouseDown(Event: MouseArgs): void {

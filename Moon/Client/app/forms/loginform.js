@@ -20,7 +20,8 @@ var mlabel_1 = require("../mlib/mlabel");
 var mtextbox_1 = require("../mlib/mtextbox");
 var mcontrol_1 = require("../mlib/mcontrol");
 var app_1 = require("../global/app");
-var moon_info_1 = require("../service/moon-info");
+var service_1 = require("../service/service");
+var response_1 = require("../service/response");
 var LoginForm = /** @class */ (function (_super) {
     __extends(LoginForm, _super);
     function LoginForm() {
@@ -30,7 +31,7 @@ var LoginForm = /** @class */ (function (_super) {
         _this.BorderVisible = false;
         _this.wMain = new mwindow_1.MWindow();
         _this.wMain.Text = "Введите учетные данные";
-        _this.wMain.Font = "32px Roboto-Bold";
+        _this.wMain.Font = "32px CoreRhino-Regular";
         _this.wMain.Width = 500;
         _this.wMain.Height = 450;
         _this.wMain.Align = mcontrol_1.MAlign.Center;
@@ -96,10 +97,10 @@ var LoginForm = /** @class */ (function (_super) {
     }
     LoginForm.prototype.Login = function () {
         var _this = this;
-        var logInfo = new moon_info_1.LogOnData();
+        var logInfo = new response_1.LogOnData();
         logInfo.login = this.tbLogin.Text.trim();
         logInfo.password = this.tbPassword.Text.trim();
-        app_1.App.Hub.Request("LogOn", logInfo, function (res) {
+        service_1.MoonService.logOn(logInfo, function (res) {
             if (res.errorCode == 0) {
                 app_1.App.UserAuth = true;
                 app_1.App.UserGuid = res.user.userGuid;
@@ -108,20 +109,6 @@ var LoginForm = /** @class */ (function (_super) {
             else
                 _this.lError.Text = res.errorMessage;
         });
-        /*
-        var xhr = new XMLHttpRequest();
-        xhr.open('PUT', 'myservice/user/1234');
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                var userInfo = JSON.parse(xhr.responseText);
-            }
-        };
-        xhr.send(JSON.stringify({
-            name: 'John Smith',
-            age: 34
-        }));
-        */
     };
     LoginForm.prototype.ResizeWindow = function () {
         this.width = app_1.App.Game.Width;

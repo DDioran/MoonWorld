@@ -15,13 +15,13 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mfixbutton_1 = require("./mfixbutton");
 var mgfx_1 = require("../mlib/mgfx");
-var moon_info_1 = require("../service/moon-info");
+var info_1 = require("../service/info");
 var MCharacterButton = /** @class */ (function (_super) {
     __extends(MCharacterButton, _super);
     function MCharacterButton() {
         var _this = _super.call(this) || this;
         _this.text = "MCharacterButton";
-        _this.font = "24px Roboto-Bold";
+        _this.font = "24px CoreRhino-Bold";
         _this.TextMarginLeft;
         return _this;
     }
@@ -52,32 +52,32 @@ var MCharacterButton = /** @class */ (function (_super) {
         var x = 10, y = 12;
         var text = "";
         switch (this.CharInfo.ClassType) {
-            case moon_info_1.PlayerClassType.Knight:
+            case info_1.PlayerClassType.Knight:
                 img = this.sprite.ii.n.sel_char_medal_warrior;
                 mgfx_1.Gpx.DrawImage(img.img, this.gx + x, this.gy + y);
                 text = "Мечник";
                 break;
-            case moon_info_1.PlayerClassType.Mage:
+            case info_1.PlayerClassType.Mage:
                 img = this.sprite.ii.n.sel_char_medal_wizzard;
                 mgfx_1.Gpx.DrawImage(img.img, this.gx + x + 3, this.gy + y);
                 text = "Волшебник";
                 break;
-            case moon_info_1.PlayerClassType.Archer:
+            case info_1.PlayerClassType.Archer:
                 img = this.sprite.ii.n.sel_char_medal_archer;
                 mgfx_1.Gpx.DrawImage(img.img, this.gx + x + 1, this.gy + y + 1);
                 text = "Лучник";
                 break;
-            case moon_info_1.PlayerClassType.Priest:
+            case info_1.PlayerClassType.Priest:
                 img = this.sprite.ii.n.sel_char_medal_healer;
                 mgfx_1.Gpx.DrawImage(img.img, this.gx + x + 13, this.gy + y);
                 text = "Лекарь";
                 break;
         }
-        var font = "18px RobotoBold";
+        var font = "18px CoreRhino-Bold";
         var wt = mgfx_1.Gpx.MeasureText(text, font).width;
         mgfx_1.Gpx.TText2(this.color, this.ShadowColor, this.text, this.gx + 80, this.gy + 4, this.font);
         mgfx_1.Gpx.TText2(this.color, this.ShadowColor, text, this.gx + 80, this.gy + 34, font);
-        mgfx_1.Gpx.TText2(this.color, this.ShadowColor, "Level " + this.CharInfo.Level.toFixed(0), this.gx + 90 + wt, this.gy + 34, "18px Roboto");
+        mgfx_1.Gpx.TText2(this.color, this.ShadowColor, "Level " + this.CharInfo.Level.toFixed(0), this.gx + 90 + wt, this.gy + 34, "18px CoreRhino-Regular");
     };
     return MCharacterButton;
 }(mfixbutton_1.MFixButton));

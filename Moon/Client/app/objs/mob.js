@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mcounter_1 = require("../mlib/mcounter");
 var sobject_1 = require("../mlib/sobject");
-var moon_info_1 = require("../service/moon-info");
+var info_1 = require("../service/info");
 var app_1 = require("../global/app");
 var mgfx_1 = require("../mlib/mgfx");
 var MoonMob = /** @class */ (function (_super) {
@@ -25,14 +25,14 @@ var MoonMob = /** @class */ (function (_super) {
         _this.paused = false;
         app_1.App.Field.MoonMobList.ItemList.push(_this);
         switch (MobInfo.infoType) {
-            case moon_info_1.ClientInfoType.MobInfo:
-                _this.Type = moon_info_1.MoonMobType.Mob;
+            case info_1.ClientInfoType.MobInfo:
+                _this.Type = info_1.MoonMobType.Mob;
                 break;
-            case moon_info_1.ClientInfoType.PlayerInfo:
-                _this.Type = moon_info_1.MoonMobType.Player;
+            case info_1.ClientInfoType.PlayerInfo:
+                _this.Type = info_1.MoonMobType.Player;
                 break;
-            case moon_info_1.ClientInfoType.NpcInfo:
-                _this.Type = moon_info_1.MoonMobType.Npc;
+            case info_1.ClientInfoType.NpcInfo:
+                _this.Type = info_1.MoonMobType.Npc;
                 break;
         }
         _this.DirectionView = 3;
@@ -50,7 +50,7 @@ var MoonMob = /** @class */ (function (_super) {
         this.TargetId = MobInfo.targetId;
         this.TargetType = MobInfo.targetType;
         this.Level = MobInfo.level;
-        if (this.Type == moon_info_1.MoonMobType.Player) {
+        if (this.Type == info_1.MoonMobType.Player) {
             this.PlayerId = MobInfo.playerId;
             this.Active = MobInfo.active;
             this.ClassType = MobInfo.classType;
@@ -98,9 +98,9 @@ var MoonMob = /** @class */ (function (_super) {
         this.AnimateName = MobInfo.animateName;
         this.Debuffs = MobInfo.debuffs;
         this.Party = MobInfo.party;
-        if (this.PInstruction != "p" || this.Type == moon_info_1.MoonMobType.Mob)
+        if (this.PInstruction != "p" || this.Type == info_1.MoonMobType.Mob)
             this.paused = false;
-        if (this.State == moon_info_1.MoonMobState.Alive) {
+        if (this.State == info_1.MoonMobState.Alive) {
             //var key = this.PInstruction + "+" + this.PParam1 + "+" + this.DirectionView;
             var repeat = true;
             var anispeed = this.IdleAniSpeed;
@@ -116,7 +116,7 @@ var MoonMob = /** @class */ (function (_super) {
                     anispeed = this.RunAniSpeed;
                 }
             }
-            if (this.PInstruction == "s" && this.SkillState == moon_info_1.SkillState.Run) {
+            if (this.PInstruction == "s" && this.SkillState == info_1.SkillState.Run) {
                 //console.log("s");
                 anispeed = this.SkillAniSpeed;
                 action = this.Sprite.sow.spr[this.AnimateName];
@@ -132,7 +132,7 @@ var MoonMob = /** @class */ (function (_super) {
                 this.CounterViewAction = action;
             }
         }
-        if (this.State == moon_info_1.MoonMobState.Dead) {
+        if (this.State == info_1.MoonMobState.Dead) {
             action = this.Sprite.sow.spr.defeat;
             var anispeed = this.DeathAniSpeed;
             //if (!(this.CounterView && this.CounterView.Count == action[this.DirectionView].length && this.CounterView.TimeSecs == 1.0 && this.CounterView.Loop == false)) {
@@ -157,14 +157,14 @@ var MoonMob = /** @class */ (function (_super) {
         // --
     };
     MoonMob.prototype.Dispatcher = function () {
-        if (this.Type == moon_info_1.MoonMobType.Player) {
+        if (this.Type == info_1.MoonMobType.Player) {
             var a = 0;
         }
         if (this.CounterView)
             this.CounterView.GetIndex(app_1.App.DeltaTime);
         if (this.paused)
             return;
-        if (this.State == moon_info_1.MoonMobState.Alive) {
+        if (this.State == info_1.MoonMobState.Alive) {
             this.PInstructionTime += app_1.App.DeltaTime;
             if (this.PInstruction == "p") {
                 if (this.PInstructionTime >= this.PInstructionAllTime)
@@ -182,7 +182,7 @@ var MoonMob = /** @class */ (function (_super) {
                 this.Y = this.storeY + this.deltaY * this.PInstructionTime;
                 return;
             }
-            if (this.PInstruction == "s" && this.SkillState == moon_info_1.SkillState.Run) {
+            if (this.PInstruction == "s" && this.SkillState == info_1.SkillState.Run) {
                 if (this.PInstructionTime >= this.PInstructionAllTime) {
                     this.NextInstruction();
                     return;
@@ -190,31 +190,31 @@ var MoonMob = /** @class */ (function (_super) {
                 return;
             }
         }
-        if (this.State == moon_info_1.MoonMobState.Dead) {
+        if (this.State == info_1.MoonMobState.Dead) {
             this.AwaitTime += app_1.App.DeltaTime;
         }
     };
     MoonMob.prototype.Paint = function () {
         var _this = this;
-        if (this.Type == moon_info_1.MoonMobType.Player) {
+        if (this.Type == info_1.MoonMobType.Player) {
             var a = 0;
         }
-        if (this.State != moon_info_1.MoonMobState.Await) {
+        if (this.State != info_1.MoonMobState.Await) {
             var action = this.Sprite.sow.spr.paused;
-            if (this.State == moon_info_1.MoonMobState.Alive) {
+            if (this.State == info_1.MoonMobState.Alive) {
                 if (!this.paused && this.PInstruction == "m") {
                     if (this.PParam1 == "w")
                         action = this.Sprite.sow.spr.walking;
                     if (this.PParam1 == "r")
                         action = this.Sprite.sow.spr.running;
                 }
-                if (this.PInstruction == "s" && this.SkillState == moon_info_1.SkillState.Run) {
+                if (this.PInstruction == "s" && this.SkillState == info_1.SkillState.Run) {
                     action = this.Sprite.sow.spr[this.AnimateName];
                     if (!action)
                         action = this.Sprite.sow.spr.attack;
                 }
             }
-            if (this.State == moon_info_1.MoonMobState.Dead)
+            if (this.State == info_1.MoonMobState.Dead)
                 action = this.Sprite.sow.spr.defeat;
             var idx = this.CounterView.GetCurrentIndex();
             if (idx < 0) {
@@ -232,14 +232,14 @@ var MoonMob = /** @class */ (function (_super) {
             px -= this.SpriteOX;
             py -= this.SpriteOY;
             var color = "yellow";
-            var font = "11px Roboto";
-            if (this.Type == moon_info_1.MoonMobType.Npc) {
+            var font = "11px CoreRhino-Regular";
+            if (this.Type == info_1.MoonMobType.Npc) {
                 var color = "#ccff88";
-                var font = "12px Roboto";
+                var font = "12px CoreRhino-Regular";
             }
             var width = mgfx_1.Gpx.MeasureText(this.Name, font).width;
             mgfx_1.Gpx.Text(color, this.Name, px + spr.cx - width / 2, py + spr.cy - 45, font);
-            if (this.Type != moon_info_1.MoonMobType.Npc) {
+            if (this.Type != info_1.MoonMobType.Npc) {
                 color = "red";
                 mgfx_1.Gpx.DrawFillRect("gray", "yellow", px + spr.cx - 32, py + spr.cy - 40, 64, 5);
                 mgfx_1.Gpx.FillRect(color, px + spr.cx - 31, py + spr.cy - 39, 62 * this.HP / this.MaxHP, 3);
@@ -249,7 +249,7 @@ var MoonMob = /** @class */ (function (_super) {
                 if (npcInfo && (npcInfo.offer || npcInfo.complete)) {
                     var qText = "" + (npcInfo.offer ? '!' : '') + (npcInfo.complete ? '?' : '');
                     width = mgfx_1.Gpx.MeasureText(qText, font).width;
-                    mgfx_1.Gpx.Text("yellow", qText, px + spr.cx - width / 2, py + spr.cy - 45 - 16, "24px Roboto-Bold");
+                    mgfx_1.Gpx.Text("yellow", qText, px + spr.cx - width / 2, py + spr.cy - 45 - 16, "24px CoreRhino-Bold");
                 }
             }
         }

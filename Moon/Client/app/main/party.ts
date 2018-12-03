@@ -3,7 +3,7 @@ import { MoonMob, MoonMobList } from "../objs/mob";
 import { MContextMenu } from "../ui/mcontextmenu";
 import { JsPack, JsXSprite } from "../global/resx";
 import { App } from "../global/app";
-import { PlayerClassType, MoonObjectType } from "../service/moon-info";
+import { PlayerClassType, MoonObjectType } from "../service/info";
 import { MouseArgs } from "../mlib/events";
 import { Gpx } from "../mlib/mgfx";
 
@@ -47,15 +47,15 @@ export class MPartyPlayer extends MPlaceHolderPanel {
     Gpx.FillRect("#00DD00", this.gx + 70.5 * ration, this.gy + 35.5 * ration, (145 * this.Player.HP / this.Player.MaxHP) * ration, 5 * ration);
     Gpx.FillRect(col1, this.gx + 70.5 * ration, this.gy + 47.5 * ration, 145 * ration, 8 * ration);
     Gpx.FillRect(col2, this.gx + 70.5 * ration, this.gy + 54.5 * ration, 145 * ration, 5 * ration);
-    Gpx.Text(this.Player.Active?"Yellow":"#c0c0c0", ((this.Player.Party && this.Player.Party.leader == this.Player.PlayerId) ? "* " : "") + this.Player.Name, this.gx + 70 * ration, this.gy + 21 * ration, mfnt + "px Roboto");
-    Gpx.Text("Yellow", this.Player.Level.toFixed(0), this.gx + 45 * ration, this.gy + 58 * ration, bfnt + "px Roboto");
+    Gpx.Text(this.Player.Active ? "Yellow" : "#c0c0c0", ((this.Player.Party && this.Player.Party.leader == this.Player.PlayerId) ? "* " : "") + this.Player.Name, this.gx + 70 * ration, this.gy + 21 * ration, mfnt + "px CoreRhino-Regular");
+    Gpx.Text("Yellow", this.Player.Level.toFixed(0), this.gx + 45 * ration, this.gy + 58 * ration, bfnt + "px CoreRhino-Regular");
     Gpx.FillRect("#FFFF00", this.gx + 8.5 * ration, this.gy + 66.3 * ration, (210 * this.Player.Exp / this.Player.MaxExp) * ration, 0.7 * ration);
     var text = this.Player.HP.toFixed(0) + "/" + this.Player.MaxHP.toFixed(0);
-    var width = Gpx.MeasureText(text, "14px Roboto").width;
-    Gpx.Text2("White", "Black", text, this.gx + (70 + (145 - width) / 2) * ration, this.gy + 39 * ration, sfnt + "px Roboto");
+    var width = Gpx.MeasureText(text, "14px CoreRhino-Regular").width;
+    Gpx.Text2("White", "Black", text, this.gx + (70 + (145 - width) / 2) * ration, this.gy + 39 * ration, sfnt + "px CoreRhino-Regular");
     text = "100/100";
-    width = Gpx.MeasureText(text, "14px Roboto").width;
-    Gpx.Text2("White", "Black", text, this.gx + (70 + (145 - width) / 2) * ration, this.gy + 58 * ration, sfnt + "px Roboto");
+    width = Gpx.MeasureText(text, "14px CoreRhino-Regular").width;
+    Gpx.Text2("White", "Black", text, this.gx + (70 + (145 - width) / 2) * ration, this.gy + 58 * ration, sfnt + "px CoreRhino-Regular");
   }
 
   protected OnPropagateMouseDown(Event: MouseArgs): void {

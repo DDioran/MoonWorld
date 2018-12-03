@@ -150,7 +150,7 @@ export class MoonHitEffect extends SObjectXY {
       }
       var col1 = "rgba(255, 0, 0, " + a + ")";
       var col2 = "rgba(255, 255, 0, " + a + ")";
-      var font = "20px Roboto-Bold";
+      var font = "20px CoreRhino-Bold";
       if (App.Field.MoonPlayer.MobId == this.MobId) {
         col1 = "rgba(0, 128, 255, " + a + ")";
       }

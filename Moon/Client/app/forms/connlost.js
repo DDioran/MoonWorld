@@ -53,7 +53,7 @@ var MCLPanel = /** @class */ (function (_super) {
     MCLPanel.prototype.OnPaint = function () {
         _super.prototype.OnPaint.call(this);
         mgfx_1.Gpx.FillRect("#9C3D37", this.gx, this.gy, this.width, this.height);
-        mgfx_1.Gpx.Text2("#E9F383", "#686A05", this.text, this.gx + 10, this.gy + 24, "22px Roboto");
+        mgfx_1.Gpx.Text2("#E9F383", "#686A05", this.text, this.gx + 10, this.gy + 24, "22px CoreRhino-Regular");
     };
     return MCLPanel;
 }(mphpanel_1.MPlaceHolderPanel));

@@ -22,9 +22,9 @@ namespace Moon
     }
     public async void Method_LogOn(int id, LogOnData logOnData)
     {
-      MoonApplication.Hub = Clients;
+      /*MoonApplication.Hub = Clients;
       UserEditResult result = await MoonApplication.Server.Db.LogOn(_contextAccessor, _signInManager, logOnData);
-      await MoonApplication.Hub.Caller.SendAsync("Method_Response", id, result);
+      await MoonApplication.Hub.Caller.SendAsync("Method_Response", id, result);*/
     }
     public async void Method_InsertMoonCharacter(int id, MoonChar moonChar)
     {

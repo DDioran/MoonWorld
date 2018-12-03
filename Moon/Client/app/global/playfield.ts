@@ -8,7 +8,7 @@ import { MParty } from "../main/party";
 import { MContextFloat } from "../ui/mcontextfloat";
 import { MMessageBox } from "../ui/mmessagebox";
 import { App } from "./app";
-import { PlayerInfo, MoonMobState, MoonMobType, SkillInfo, MoonObjectType, SkillState, ClientInfo } from "../service/moon-info";
+import { MoonMobState, MoonMobType, SkillInfo, MoonObjectType, SkillState, ClientInfo } from "../service/info";
 import { JsPack, JsXImage } from "./resx";
 import { MouseArgs, MouseExtArgs } from "../mlib/events";
 import { Gpx } from "../mlib/mgfx";

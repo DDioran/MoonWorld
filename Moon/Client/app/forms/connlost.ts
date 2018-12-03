@@ -37,6 +37,6 @@ export class MCLPanel extends MPlaceHolderPanel {
   protected OnPaint() {
     super.OnPaint();
     Gpx.FillRect("#9C3D37", this.gx, this.gy, this.width, this.height);
-    Gpx.Text2("#E9F383", "#686A05", this.text, this.gx + 10, this.gy + 24, "22px Roboto");
+    Gpx.Text2("#E9F383", "#686A05", this.text, this.gx + 10, this.gy + 24, "22px CoreRhino-Regular");
   }
 }

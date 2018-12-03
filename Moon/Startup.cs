@@ -48,6 +48,7 @@ namespace Moon
             options.LoginPath = new PathString(Configuration["LoginPath"]);
             options.AccessDeniedPath = new PathString(Configuration["Http403Path"]);
           });
+      services.AddMvc();
       services.AddResponseCompression();
       services.Configure<GzipCompressionProviderOptions>(options =>
       {
@@ -95,6 +96,12 @@ namespace Moon
 
       app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
+      app.UseMvc(routes =>
+      {
+        routes.MapRoute(
+                  name: "default",
+                  template: "{controller=Home}/{action=Index}");
+      });
       appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
     }
   }

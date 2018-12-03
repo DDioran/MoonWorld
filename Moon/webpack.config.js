@@ -26,6 +26,7 @@ module.exports = (env) => {
         { test: /\.ts$/, use: 'ts-loader' },
         { test: /\.css$/, use: [MiniCssExtractPlugin.loader, "css-loader"] },
         //{ test: /\.css$/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize'] },
+        { test: /\.(png|jpg|woff|woff2|eot|ttf|svg|otf)(\?|$)/, use: 'url-loader?limit=1000000' }
       ]
     },
     plugins: [

@@ -2,7 +2,7 @@
 import { EventArgs } from "../mlib/events";
 import { App } from "../global/app";
 import { MFloat } from "../ui/mfloat";
-import { NpcTalkInfo } from "../service/moon-info";
+import { NpcTalkInfo } from "../service/info";
 
 export class QuestPanel extends MFloat {
   protected QuestElement: HTMLElement;

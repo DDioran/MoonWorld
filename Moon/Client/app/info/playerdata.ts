@@ -1,4 +1,4 @@
-﻿import { PlayerClassType } from "../service/moon-info";
+﻿import { PlayerClassType } from "../service/info";
 
 export class CharacterInfo {
   public CharacterId: string;

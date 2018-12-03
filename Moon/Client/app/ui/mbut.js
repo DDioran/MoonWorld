@@ -20,7 +20,7 @@ var MBut = /** @class */ (function (_super) {
     function MBut() {
         var _this = _super.call(this) || this;
         _this.text = "but";
-        _this.font = "24px Roboto-Bold";
+        _this.font = "24px CoreRhino-Bold";
         return _this;
     }
     MBut.prototype.OnInit = function () {

@@ -1,14 +1,14 @@
 ﻿import { MFixButton } from "./mfixbutton";
 import { Gpx } from "../mlib/mgfx";
 import { JsXImage } from "../global/resx";
-import { PlayerClassType } from "../service/moon-info";
+import { PlayerClassType } from "../service/info";
 
 export class MMedalButton extends MFixButton {
   public ClassType: PlayerClassType;
   constructor() {
     super();
     this.text = "";
-    this.font = "24px Roboto-Bold";
+    this.font = "24px CoreRhino-Bold";
     this.ClassType = PlayerClassType.Knight;
   }
   public OnInit() {

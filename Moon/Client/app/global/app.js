@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var indexeddb_angular_1 = require("indexeddb-angular");
 var resx_1 = require("./resx");
+var service_1 = require("../service/service");
 var game_1 = require("./game");
 var mgfx_1 = require("../mlib/mgfx");
 var events_1 = require("../mlib/events");
@@ -9,6 +10,7 @@ var App = /** @class */ (function () {
     function App() {
     }
     App.InitializeApplication = function () {
+        var _this = this;
         this.Html = document.querySelector("#gameField");
         this.Canvas = document.querySelector("#gameCanvas");
         this.Context = this.Canvas.getContext("2d");
@@ -17,11 +19,13 @@ var App = /** @class */ (function () {
         this.InitializeEvents();
         this.GameInit();
         this.resize_window();
-        App.UserAuth = false;
-        App.UserAllow = false;
-        App.UserName = null;
-        App.UserGuid = null;
-        this.Game.InitEngine();
+        service_1.MoonService.authInfo(function (res) {
+            App.UserAuth = res.isAuthUser;
+            App.UserAllow = res.isAllow;
+            App.UserName = res.userName;
+            App.UserGuid = res.userGuid;
+            _this.Game.InitEngine();
+        });
     };
     App.InitializeEvents = function () {
         var _this = this;

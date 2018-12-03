@@ -81,7 +81,7 @@ var MResPanel = /** @class */ (function (_super) {
         _super.prototype.OnPaint.call(this);
         mgfx_1.Gpx.FillRect("#789B47", this.gx, this.gy, this.width * this.Percent, this.height);
         //if (this.Odd)
-        mgfx_1.Gpx.Text2("#E9F383", "#686A05", this.text, this.gx + 10, this.gy + 24, "22px Roboto");
+        mgfx_1.Gpx.Text2("#E9F383", "#686A05", this.text, this.gx + 10, this.gy + 24, "22px CoreRhino-Regular");
     };
     return MResPanel;
 }(mphpanel_1.MPlaceHolderPanel));

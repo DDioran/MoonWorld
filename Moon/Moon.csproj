@@ -7,6 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Client\font\CoreRhino25Thin-Italic.otf" />
+    <Content Include="Client\font\CoreRhino25Thin.otf" />
+    <Content Include="Client\font\CoreRhino35Light-Italic.otf" />
+    <Content Include="Client\font\CoreRhino35Light.otf" />
+    <Content Include="Client\font\CoreRhino45Regular-Italic.otf" />
+    <Content Include="Client\font\CoreRhino45Regular.otf" />
+    <Content Include="Client\font\CoreRhino55Medium-Italic.otf" />
+    <Content Include="Client\font\CoreRhino55Medium.otf" />
+    <Content Include="Client\font\CoreRhino65Bold-Italic.otf" />
+    <Content Include="Client\font\CoreRhino65Bold.otf" />
+    <Content Include="Client\font\CoreRhino75Heavy-Italic.otf" />
+    <Content Include="Client\font\CoreRhino75Heavy.otf" />
+    <Content Include="Client\font\CoreRhino85Black-Italic.otf" />
+    <Content Include="Client\font\CoreRhino85Black.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -16,6 +33,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.4.*" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />

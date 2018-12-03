@@ -21,7 +21,7 @@ var chat_1 = require("../main/chat");
 var targethp_1 = require("../main/targethp");
 var party_1 = require("../main/party");
 var app_1 = require("./app");
-var moon_info_1 = require("../service/moon-info");
+var info_1 = require("../service/info");
 var mgfx_1 = require("../mlib/mgfx");
 var mcontextmenu_1 = require("../ui/mcontextmenu");
 var MoonPlayField = /** @class */ (function (_super) {
@@ -78,7 +78,7 @@ var MoonPlayField = /** @class */ (function (_super) {
         if (this.MoonPlayer) {
             this.playerx = this.MoonPlayer.X;
             this.playery = this.MoonPlayer.Y;
-            if (this.MoonPlayer.State == moon_info_1.MoonMobState.Alive && this.MoonPlayer.PInstruction == "s" && this.MoonPlayer.SkillState == moon_info_1.SkillState.Charge) {
+            if (this.MoonPlayer.State == info_1.MoonMobState.Alive && this.MoonPlayer.PInstruction == "s" && this.MoonPlayer.SkillState == info_1.SkillState.Charge) {
                 this.MoonPlayer.ChargeLeft += app_1.App.DeltaTime;
             }
             this.MoonPlayer.Skills.forEach(function (s) {
@@ -104,23 +104,23 @@ var MoonPlayField = /** @class */ (function (_super) {
         mgfx_1.Gpx.DrawFillRect("rgba(192, 192, 192, 0.4)", "rgba(255, 255, 255, 0.6)", mmox, mmoy, mmw, mmh);
         app_1.App.Field.MoonMobList.ItemList.forEach(function (i) {
             var mob = i;
-            if (mob.State == moon_info_1.MoonMobState.Await)
+            if (mob.State == info_1.MoonMobState.Await)
                 return;
-            if (mob.Type == moon_info_1.MoonMobType.Player) {
+            if (mob.Type == info_1.MoonMobType.Player) {
                 var cc = "red";
-                if (mob.State == moon_info_1.MoonMobState.Dead)
+                if (mob.State == info_1.MoonMobState.Dead)
                     cc = "gray";
                 if (mob.PlayerId == app_1.App.PlayerGuid)
                     cc = "green";
                 mgfx_1.Gpx.DrawFillCircle(cc, "yellow", mmox + mob.X * k + mmx, mmoy + mob.Y * k + mmy, 3);
             }
-            if (mob.Type == moon_info_1.MoonMobType.Mob) {
+            if (mob.Type == info_1.MoonMobType.Mob) {
                 var cc = "red";
-                if (mob.State == moon_info_1.MoonMobState.Dead)
+                if (mob.State == info_1.MoonMobState.Dead)
                     cc = "gray";
                 mgfx_1.Gpx.FillCircle(cc, mmox + mob.X * k + mmx, mmoy + mob.Y * k + mmy, 1.3);
             }
-            if (mob.Type == moon_info_1.MoonMobType.Npc) {
+            if (mob.Type == info_1.MoonMobType.Npc) {
                 var cc = "lightblue";
                 mgfx_1.Gpx.DrawFillCircle(cc, "yellow", mmox + mob.X * k + mmx, mmoy + mob.Y * k + mmy, 3);
             }
@@ -129,7 +129,7 @@ var MoonPlayField = /** @class */ (function (_super) {
         // ui-player
         if (this.MoonPlayer) {
             // ---------
-            if (this.MoonPlayer.State == moon_info_1.MoonMobState.Alive && this.MoonPlayer.PInstruction == "s" && this.MoonPlayer.SkillState == moon_info_1.SkillState.Charge) {
+            if (this.MoonPlayer.State == info_1.MoonMobState.Alive && this.MoonPlayer.PInstruction == "s" && this.MoonPlayer.SkillState == info_1.SkillState.Charge) {
                 mgfx_1.Gpx.DrawFillRect("gray", "#E0E000", this.cx - 100, app_1.App.Game.Height - 240, 200, 12, 1.5);
                 mgfx_1.Gpx.FillRect("yellow", this.cx - 99, app_1.App.Game.Height - 239, 198 * this.MoonPlayer.ChargeLeft / this.MoonPlayer.ChargeTime, 10);
             }
@@ -227,9 +227,9 @@ var MoonPlayField = /** @class */ (function (_super) {
         if (!this.UnderCursor)
             for (var i = 0; i < this.MoonMobList.ItemList.length; i++) {
                 var m = this.MoonMobList.ItemList[i];
-                if (m.State == moon_info_1.MoonMobState.Await)
+                if (m.State == info_1.MoonMobState.Await)
                     continue;
-                if (m.Type == moon_info_1.MoonMobType.Player && m.PlayerId == app_1.App.PlayerGuid)
+                if (m.Type == info_1.MoonMobType.Player && m.PlayerId == app_1.App.PlayerGuid)
                     continue;
                 if (Math.sqrt((m.X - x) * (m.X - x) + (m.Y - y) * (m.Y - y)) < m.Radius) {
                     this.UnderCursor = m;
@@ -247,10 +247,10 @@ var MoonPlayField = /** @class */ (function (_super) {
         this.SetUnderCursor(x, y);
         if (this.UnderCursor) {
             // Ткнули в моба, игрока или сундук
-            var ot = moon_info_1.MoonObjectType.Mob;
+            var ot = info_1.MoonObjectType.Mob;
             var oid;
             if (this.UnderCursor instanceof chest_1.MoonChest) {
-                ot = moon_info_1.MoonObjectType.Chest;
+                ot = info_1.MoonObjectType.Chest;
                 oid = this.UnderCursor.Info.chestId;
             }
             else {
@@ -274,7 +274,7 @@ var MoonPlayField = /** @class */ (function (_super) {
     MoonPlayField.prototype.ContextObjectMenu = function (x, y, objectId) {
         this.DropContextPanels();
         var mob = app_1.App.Field.MoonMobList.ItemList.filter(function (i) { return i.MobId == objectId; })[0];
-        if (mob.Type != moon_info_1.MoonMobType.Player)
+        if (mob.Type != info_1.MoonMobType.Player)
             return;
         if (mob.Party)
             return;

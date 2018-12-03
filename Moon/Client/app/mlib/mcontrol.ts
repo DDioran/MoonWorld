@@ -230,7 +230,7 @@ export class MControl {
     this.enabled = true;
     this.visible = true;
     this.parent = null;
-    this.font = "10 Roboto";
+    this.font = "10 CoreRhino-Regular";
     this.color = "white";
     this.backgroundColor = "black";
     this.transparent = true;

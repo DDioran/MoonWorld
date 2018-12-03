@@ -18,7 +18,7 @@ export class MFixButton extends MPlaceHolderPanel {
     this.transparent = true;
     this.BorderVisible = false;
     this.text = "but";
-    this.font = "24px Roboto-Bold";
+    this.font = "24px CoreRhino-Bold";
     this.Ajustment();
     this.canmousecapture = true;
   }

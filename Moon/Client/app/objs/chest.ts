@@ -58,7 +58,7 @@ export class MoonChest extends SObjectXY {
     var py = Math.floor(- App.Field.playery + App.Field.cy + this.Y);
 
     if (this.State == ChestState.Restricted || this.State == ChestState.Available) {
-      var font = "11px Roboto";
+      var font = "11px CoreRhino-Regular";
       var width = Gpx.MeasureText("Сундук", font).width;
       Gpx.Text("Yellow", "Сундук", px - width / 2 + 4, py - 16, font);
     }

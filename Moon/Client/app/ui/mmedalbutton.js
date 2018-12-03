@@ -15,14 +15,14 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mfixbutton_1 = require("./mfixbutton");
 var mgfx_1 = require("../mlib/mgfx");
-var moon_info_1 = require("../service/moon-info");
+var info_1 = require("../service/info");
 var MMedalButton = /** @class */ (function (_super) {
     __extends(MMedalButton, _super);
     function MMedalButton() {
         var _this = _super.call(this) || this;
         _this.text = "";
-        _this.font = "24px Roboto-Bold";
-        _this.ClassType = moon_info_1.PlayerClassType.Knight;
+        _this.font = "24px CoreRhino-Bold";
+        _this.ClassType = info_1.PlayerClassType.Knight;
         return _this;
     }
     MMedalButton.prototype.OnInit = function () {
@@ -38,22 +38,22 @@ var MMedalButton = /** @class */ (function (_super) {
         y += 24;
         var text = "";
         switch (this.ClassType) {
-            case moon_info_1.PlayerClassType.Knight:
+            case info_1.PlayerClassType.Knight:
                 img = this.sprite.ii.n.sel_char_medal_warrior;
                 mgfx_1.Gpx.DrawImage(img.img, this.gx + x, this.gy + y);
                 text = "Мечник";
                 break;
-            case moon_info_1.PlayerClassType.Mage:
+            case info_1.PlayerClassType.Mage:
                 img = this.sprite.ii.n.sel_char_medal_wizzard;
                 mgfx_1.Gpx.DrawImage(img.img, this.gx + x + 3, this.gy + y);
                 text = "Волшебник";
                 break;
-            case moon_info_1.PlayerClassType.Archer:
+            case info_1.PlayerClassType.Archer:
                 img = this.sprite.ii.n.sel_char_medal_archer;
                 mgfx_1.Gpx.DrawImage(img.img, this.gx + x, this.gy + y);
                 text = "Лучник";
                 break;
-            case moon_info_1.PlayerClassType.Priest:
+            case info_1.PlayerClassType.Priest:
                 img = this.sprite.ii.n.sel_char_medal_healer;
                 mgfx_1.Gpx.DrawImage(img.img, this.gx + x + 12, this.gy + y);
                 text = "Лекарь";

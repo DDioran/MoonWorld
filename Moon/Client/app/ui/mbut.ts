@@ -7,7 +7,7 @@ export class MBut extends MPanel {
   constructor() {
     super();
     this.text = "but";
-    this.font = "24px Roboto-Bold";
+    this.font = "24px CoreRhino-Bold";
   }
   public OnInit() {
     super.OnInit();

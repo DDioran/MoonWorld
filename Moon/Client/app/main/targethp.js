@@ -17,7 +17,7 @@ var mphpanel_1 = require("../mlib/mphpanel");
 var mob_1 = require("../objs/mob");
 var chest_1 = require("../objs/chest");
 var mgfx_1 = require("../mlib/mgfx");
-var moon_info_1 = require("../service/moon-info");
+var info_1 = require("../service/info");
 var app_1 = require("../global/app");
 var MTargetHP = /** @class */ (function (_super) {
     __extends(MTargetHP, _super);
@@ -33,13 +33,13 @@ var MTargetHP = /** @class */ (function (_super) {
     MTargetHP.prototype.AfterPaint = function () {
         var player = app_1.App.Field.MoonPlayer;
         if (player && player.TargetId > 0) {
-            if (player.TargetType == moon_info_1.MoonObjectType.Mob) {
+            if (player.TargetType == info_1.MoonObjectType.Mob) {
                 var mob = mob_1.MoonMobList.FindMob(player.TargetId);
                 var text = mob.Level.toFixed(0);
-                var width = mgfx_1.Gpx.MeasureText(text, "22px Roboto").width;
-                mgfx_1.Gpx.TText2("Yellow", "Black", text, this.gx + (32 - width) / 2, this.gy + 1, "21px Roboto-Bold");
+                var width = mgfx_1.Gpx.MeasureText(text, "22px CoreRhino-Regular").width;
+                mgfx_1.Gpx.TText2("Yellow", "Black", text, this.gx + (32 - width) / 2, this.gy + 1, "21px CoreRhino-Bold");
                 mgfx_1.Gpx.DrawCircle("Yellow", this.gx + 15, this.gy + 16, 13);
-                mgfx_1.Gpx.TText("Yellow", mob.Name, this.gx + 36, this.gy, "24px Roboto-Bold");
+                mgfx_1.Gpx.TText("Yellow", mob.Name, this.gx + 36, this.gy, "24px CoreRhino-Bold");
                 var hpLen = (this.width - 4) * mob.HP / mob.MaxHP;
                 mgfx_1.Gpx.FillRect("rgba(21, 17, 17, 0.2)", this.gx, this.gy + 30, this.width, 32);
                 mgfx_1.Gpx.DrawRect("#394750", this.gx, this.gy + 30, this.width, 32);
@@ -47,21 +47,21 @@ var MTargetHP = /** @class */ (function (_super) {
                 mgfx_1.Gpx.FillRect("#EE1B22", this.gx + 2, this.gy + 30 + 2, hpLen, 16);
                 mgfx_1.Gpx.FillRect("#B10B0F", this.gx + 2, this.gy + 30 + 2 + 16, hpLen, 12);
                 var text = mob.HP.toFixed(0) + "/" + mob.MaxHP.toFixed(0);
-                var width = mgfx_1.Gpx.MeasureText(text, "24px Roboto").width;
-                mgfx_1.Gpx.TText2("Yellow", "Black", text, this.gx + (this.width - width) / 2, this.gy + 30, "23px Roboto-Bold");
+                var width = mgfx_1.Gpx.MeasureText(text, "24px CoreRhino-Regular").width;
+                mgfx_1.Gpx.TText2("Yellow", "Black", text, this.gx + (this.width - width) / 2, this.gy + 30, "23px CoreRhino-Bold");
             }
-            if (player.TargetType == moon_info_1.MoonObjectType.Chest) {
+            if (player.TargetType == info_1.MoonObjectType.Chest) {
                 var chest = chest_1.MoonChestList.FindChest(player.TargetId);
-                mgfx_1.Gpx.TText("Yellow", "Сундук с сокровищами", this.gx, this.gy, "24px Roboto-Bold");
+                mgfx_1.Gpx.TText("Yellow", "Сундук с сокровищами", this.gx, this.gy, "24px CoreRhino-Bold");
                 mgfx_1.Gpx.FillRect("rgba(21, 17, 17, 0.2)", this.gx, this.gy + 30, this.width, 32);
                 mgfx_1.Gpx.DrawRect("#394750", this.gx, this.gy + 30, this.width, 32);
                 mgfx_1.Gpx.DrawRect("#363D45", this.gx + 1, this.gy + 30 + 1, this.width - 2, 30);
                 mgfx_1.Gpx.FillRect("#4B7AB7", this.gx + 2, this.gy + 30 + 2, this.width - 4, 16);
                 mgfx_1.Gpx.FillRect("#3E6599", this.gx + 2, this.gy + 30 + 2 + 16, this.width - 4, 12);
             }
-            if (player.TargetType == moon_info_1.MoonObjectType.Npc) {
+            if (player.TargetType == info_1.MoonObjectType.Npc) {
                 var npc = mob_1.MoonMobList.FindMob(player.TargetId);
-                mgfx_1.Gpx.TText("Yellow", npc.Name, this.gx, this.gy, "24px Roboto-Bold");
+                mgfx_1.Gpx.TText("Yellow", npc.Name, this.gx, this.gy, "24px CoreRhino-Bold");
                 mgfx_1.Gpx.FillRect("rgba(21, 17, 17, 0.2)", this.gx, this.gy + 30, this.width, 32);
                 mgfx_1.Gpx.DrawRect("#395047", this.gx, this.gy + 30, this.width, 32);
                 mgfx_1.Gpx.DrawRect("#36453D", this.gx + 1, this.gy + 30 + 1, this.width - 2, 30);

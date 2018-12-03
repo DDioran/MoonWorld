@@ -30,8 +30,8 @@ var MChatTab = /** @class */ (function (_super) {
         if (this.mouseHover && !this.Selected)
             mgfx_1.Gpx.FillRect("rgba(255,255,255,0.2)", this.gx, this.gy, this.width, this.height);
         mgfx_1.Gpx.DrawRect("rgba(255,255,200,0.6)", this.gx, this.gy, this.width, this.height);
-        var width = mgfx_1.Gpx.MeasureText(this.text, "16px Roboto").width;
-        mgfx_1.Gpx.TText("Yellow", this.text, this.gx + (this.width - width) / 2, this.gy + 2, "15px Roboto");
+        var width = mgfx_1.Gpx.MeasureText(this.text, "16px CoreRhino-Regular").width;
+        mgfx_1.Gpx.TText("Yellow", this.text, this.gx + (this.width - width) / 2, this.gy + 2, "15px CoreRhino-Regular");
     };
     MChatTab.prototype.OnPropagateMouseDown = function (Event) {
         Event.Propagate = false;

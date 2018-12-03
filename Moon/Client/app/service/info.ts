@@ -1,6 +1,4 @@
-﻿import { BaseResponse } from './base-response';
-
-export enum MoonObjectType {
+﻿export enum MoonObjectType {
   Mob,
   Chest,
   Npc
@@ -63,11 +61,6 @@ export enum PlayerClassType {
   Knight,
   Archer,
   Priest
-}
-
-
-export class MoonClientInfoResult extends BaseResponse {
-  public infos: Array<ClientInfo>;
 }
 
 export enum DebuffType {
@@ -165,30 +158,6 @@ export class SkillInfo {
 export class PartyInfo {
   public leader: string;
   public items: Array<string>;
-}
-
-export class MoonCharListResult extends BaseResponse {
-  public chars: Array<MoonChar>;
-}
-export class MoonCharResult extends BaseResponse {
-    public char: MoonChar;
-}
-export class MoonCharGuidResult extends BaseResponse {
-    public charGuid: string;
-}
-export class MoonChar {
-  public moonCharacterGuid: string;
-  public userGuid: string;
-  public name: string;
-  public class: number;
-  public level: number;
-  public data: string;
-  public accessDate: Date;
-}
-
-export class LogOnData {
-  public login: string;
-  public password: string;
 }
 
 export class QuestNpcInfo {

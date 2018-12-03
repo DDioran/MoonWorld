@@ -1,7 +1,7 @@
 ﻿import { HubConnection } from "@aspnet/signalr";
 import { MChatType } from "../main/chat";
 import { MessageBoxButton } from "../ui/mmessagebox";
-import { MoonObjectType } from "../service/moon-info";
+import { MoonObjectType } from "../service/info";
 
 export class MoonHub {
   public Hub: HubConnection;

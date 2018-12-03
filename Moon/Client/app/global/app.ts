@@ -2,7 +2,7 @@ import { MoonHub } from "./hub";
 import { IndexedDBAngular } from "indexeddb-angular";
 import { ResX } from "./resx";
 import { MoonPlayField } from "./playfield";
-import { MoonService } from "../service/moon-service";
+import { MoonService } from "../service/service";
 import { MoonGame } from "./game";
 import { PlayerData } from "../info/playerdata";
 import { Coord } from "../mlib/mgfx";
@@ -52,11 +52,13 @@ export abstract class App {
     this.InitializeEvents();
     this.GameInit();
     this.resize_window();
-    App.UserAuth = false;
-    App.UserAllow = false;
-    App.UserName = null;
-    App.UserGuid = null;
-    this.Game.InitEngine();
+    MoonService.authInfo((res) => {
+      App.UserAuth = res.isAuthUser;
+      App.UserAllow = res.isAllow;
+      App.UserName = res.userName;
+      App.UserGuid = res.userGuid;
+      this.Game.InitEngine();
+    });
   }
 
   protected static InitializeEvents() {

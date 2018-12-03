@@ -24,7 +24,7 @@ var MFixButton = /** @class */ (function (_super) {
         _this.transparent = true;
         _this.BorderVisible = false;
         _this.text = "but";
-        _this.font = "24px Roboto-Bold";
+        _this.font = "24px CoreRhino-Bold";
         _this.Ajustment();
         _this.canmousecapture = true;
         return _this;

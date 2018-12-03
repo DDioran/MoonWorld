@@ -90,16 +90,16 @@ var MChat = /** @class */ (function (_super) {
         Gpx.DrawRect("rgba(250,250,200,0.6)", this.gx + 2.5 + 3 + 260, this.gy + 4.5, 130, 26);
         Gpx.DrawRect("rgba(250,250,200,0.6)", this.gx + 2.5 + 3 + 390, this.gy + 4.5, 130, 26);*/
         /*var text = App.MoonGame.value_speed.toFixed(2);
-        var width = GG.MeasureText(text, "16px Roboto").width;
-        Gpx.TText("Yellow", text, this.gx + 2.5 + 4 + (130 - width) / 2, this.gy + 2.5 + 1, "15px Roboto");*/
+        var width = GG.MeasureText(text, "16px CoreRhino-Regular").width;
+        Gpx.TText("Yellow", text, this.gx + 2.5 + 4 + (130 - width) / 2, this.gy + 2.5 + 1, "15px CoreRhino-Regular");*/
         /*
         if (App.Field.MoonPlayer && App.Field.MoonPlayer.TargetId > 0) {
           let mob: MoonMob = App.Field.MoonMobList.ItemList.filter(i => (i as MoonMob).MobId == App.Field.MoonPlayer.TargetId)[0] as MoonMob;
           var text = mob.Level.toFixed(0);
-          var width = GG.MeasureText(text, "22px Roboto").width;
-          Gpx.TText2("Yellow", "Black", text, this.gx + (32 - width) / 2, this.gy + 1, "21px Roboto-Bold");
+          var width = GG.MeasureText(text, "22px CoreRhino-Regular").width;
+          Gpx.TText2("Yellow", "Black", text, this.gx + (32 - width) / 2, this.gy + 1, "21px CoreRhino-Bold");
           Gpx.DrawCircle("Yellow", this.gx + 15, this.gy + 16, 13);
-          Gpx.TText("Yellow", mob.Name, this.gx + 36, this.gy, "24px Roboto-Bold");
+          Gpx.TText("Yellow", mob.Name, this.gx + 36, this.gy, "24px CoreRhino-Bold");
           var hpLen = (this.width - 4) * mob.HP / mob.MaxHP;
           Gpx.FillRect("rgba(21, 17, 17, 0.2)", this.gx, this.gy + 30, this.width, 32);
           Gpx.DrawRect("#394750", this.gx, this.gy + 30, this.width, 32);
@@ -107,8 +107,8 @@ var MChat = /** @class */ (function (_super) {
           Gpx.FillRect("#EE1B22", this.gx + 2, this.gy + 30 + 2, hpLen, 16);
           Gpx.FillRect("#B10B0F", this.gx + 2, this.gy + 30 + 2 + 16, hpLen, 12);
           var text = mob.HP.toFixed(0) + "/" + mob.MaxHP.toFixed(0);
-          var width = GG.MeasureText(text, "24px Roboto").width;
-          Gpx.TText2("Yellow", "Black", text, this.gx + (this.width - width) / 2, this.gy + 30, "23px Roboto-Bold");
+          var width = GG.MeasureText(text, "24px CoreRhino-Regular").width;
+          Gpx.TText2("Yellow", "Black", text, this.gx + (this.width - width) / 2, this.gy + 30, "23px CoreRhino-Bold");
         }
         */
     };

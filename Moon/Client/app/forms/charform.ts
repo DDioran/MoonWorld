@@ -11,7 +11,8 @@ import { MAlign, MVAlign } from "../mlib/mcontrol";
 import { MCharacterButton } from "../ui/mcharbutton";
 import { MSelectedGroup } from "../mlib/mphpanel";
 import { App } from "../global/app";
-import { PlayerClassType, MoonChar } from "../service/moon-info";
+import { PlayerClassType} from "../service/info";
+import { MoonChar } from "../service/response";
 
 export class CharacterForm extends MForm {
   public win: MWindow;
@@ -48,7 +49,7 @@ export class CharacterForm extends MForm {
 
     this.win = new MWindow();
     this.win.Text = "Выбор персонажа";
-    this.win.Font = "32px Roboto-Bold";
+    this.win.Font = "32px CoreRhino-Regular";
     this.win.Width = 1100;
     this.win.Height = 600;
     this.win.Align = MAlign.Center;
@@ -85,7 +86,7 @@ export class CharacterForm extends MForm {
     this.bcreatenew = new MFixButton();
     this.bcreatenew.Align = MAlign.Center;
     this.bcreatenew.PackHolderNames = ["sel_add_char_button", "sel_add_char_button_hover", "sel_add_char_button_push"];
-    this.bcreatenew.Font = "18px Roboto";
+    this.bcreatenew.Font = "18px CoreRhino-Regular";
     this.bcreatenew.Text = "CREATE CHARACTER";
     this.bcreatenew.TextMarginLeft = 24;
     this.bcreatenew.MouseClick = (s, e) => {
@@ -216,7 +217,7 @@ export class CharacterForm extends MForm {
     this.charLabel.Width = this.pnew.Width;
     this.charLabel.Align = MAlign.Center;
     this.charLabel.TextAlign = MAlign.Center;
-    this.charLabel.Font = "32px RobotoBold";
+    this.charLabel.Font = "32px CoreRhino-Bold";
     this.charLabel.Text = "---";
     this.pstart.Controls.Add(this.charLabel);
 

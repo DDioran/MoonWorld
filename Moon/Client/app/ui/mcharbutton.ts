@@ -2,14 +2,14 @@
 import { CharacterInfo } from "../info/playerdata";
 import { Gpx } from "../mlib/mgfx";
 import { JsXImage } from "../global/resx";
-import { PlayerClassType } from "../service/moon-info";
+import { PlayerClassType } from "../service/info";
 
 export class MCharacterButton extends MFixButton {
   public CharInfo: CharacterInfo;
   constructor() {
     super();
     this.text = "MCharacterButton";
-    this.font = "24px Roboto-Bold";
+    this.font = "24px CoreRhino-Bold";
     this.TextMarginLeft
   }
   public OnInit() {
@@ -67,12 +67,12 @@ export class MCharacterButton extends MFixButton {
         break;
     }
 
-    var font = "18px RobotoBold";
+    var font = "18px CoreRhino-Bold";
     var wt = Gpx.MeasureText(text, font).width;
     Gpx.TText2(this.color, this.ShadowColor, this.text, this.gx + 80, this.gy + 4, this.font);
     Gpx.TText2(this.color, this.ShadowColor, text, this.gx + 80, this.gy + 34, font);
     Gpx.TText2(this.color, this.ShadowColor, "Level " + this.CharInfo.Level.toFixed(0),
-      this.gx + 90 + wt, this.gy + 34, "18px Roboto");
+      this.gx + 90 + wt, this.gy + 34, "18px CoreRhino-Regular");
   }
 
 }

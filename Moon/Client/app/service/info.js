@@ -13,7 +13,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var base_response_1 = require("./base-response");
 var MoonObjectType;
 (function (MoonObjectType) {
     MoonObjectType[MoonObjectType["Mob"] = 0] = "Mob";
@@ -79,14 +78,6 @@ var PlayerClassType;
     PlayerClassType[PlayerClassType["Archer"] = 2] = "Archer";
     PlayerClassType[PlayerClassType["Priest"] = 3] = "Priest";
 })(PlayerClassType = exports.PlayerClassType || (exports.PlayerClassType = {}));
-var MoonClientInfoResult = /** @class */ (function (_super) {
-    __extends(MoonClientInfoResult, _super);
-    function MoonClientInfoResult() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return MoonClientInfoResult;
-}(base_response_1.BaseResponse));
-exports.MoonClientInfoResult = MoonClientInfoResult;
 var DebuffType;
 (function (DebuffType) {
     DebuffType[DebuffType["Slow"] = 0] = "Slow";
@@ -135,42 +126,6 @@ var PartyInfo = /** @class */ (function () {
     return PartyInfo;
 }());
 exports.PartyInfo = PartyInfo;
-var MoonCharListResult = /** @class */ (function (_super) {
-    __extends(MoonCharListResult, _super);
-    function MoonCharListResult() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return MoonCharListResult;
-}(base_response_1.BaseResponse));
-exports.MoonCharListResult = MoonCharListResult;
-var MoonCharResult = /** @class */ (function (_super) {
-    __extends(MoonCharResult, _super);
-    function MoonCharResult() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return MoonCharResult;
-}(base_response_1.BaseResponse));
-exports.MoonCharResult = MoonCharResult;
-var MoonCharGuidResult = /** @class */ (function (_super) {
-    __extends(MoonCharGuidResult, _super);
-    function MoonCharGuidResult() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return MoonCharGuidResult;
-}(base_response_1.BaseResponse));
-exports.MoonCharGuidResult = MoonCharGuidResult;
-var MoonChar = /** @class */ (function () {
-    function MoonChar() {
-    }
-    return MoonChar;
-}());
-exports.MoonChar = MoonChar;
-var LogOnData = /** @class */ (function () {
-    function LogOnData() {
-    }
-    return LogOnData;
-}());
-exports.LogOnData = LogOnData;
 var QuestNpcInfo = /** @class */ (function () {
     function QuestNpcInfo() {
     }
@@ -189,4 +144,4 @@ var NpcTalkInfo = /** @class */ (function () {
     return NpcTalkInfo;
 }());
 exports.NpcTalkInfo = NpcTalkInfo;
-//# sourceMappingURL=moon-info.js.map
+//# sourceMappingURL=info.js.map

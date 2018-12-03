@@ -13,7 +13,7 @@ import { PlayerData } from '../info/playerdata';
 import { MouseExtArgs, MouseArgs } from '../mlib/events';
 import { MoonSignal } from './signal';
 import { Gpx } from '../mlib/mgfx';
-import { ClientInfo } from '../service/moon-info';
+import { ClientInfo } from '../service/info';
 
 export class MoonGame {
   public Width: number;

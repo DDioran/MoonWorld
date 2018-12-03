@@ -5,7 +5,8 @@ import { MLabel } from "../mlib/mlabel";
 import { MTextBox } from "../mlib/mtextbox";
 import { MAlign, MVAlign } from "../mlib/mcontrol";
 import { App } from "../global/app";
-import { LogOnData } from "../service/moon-info";
+import { MoonService } from "../service/service";
+import { LogOnData } from "../service/response";
 
 export class LoginForm extends MForm {
   public wMain: MWindow;
@@ -24,7 +25,7 @@ export class LoginForm extends MForm {
 
     this.wMain = new MWindow();
     this.wMain.Text = "Введите учетные данные";
-    this.wMain.Font = "32px Roboto-Bold";
+    this.wMain.Font = "32px CoreRhino-Regular";
     this.wMain.Width = 500;
     this.wMain.Height = 450;
     this.wMain.Align = MAlign.Center;
@@ -98,7 +99,7 @@ export class LoginForm extends MForm {
     var logInfo: LogOnData = new LogOnData();
     logInfo.login = this.tbLogin.Text.trim();
     logInfo.password = this.tbPassword.Text.trim();
-    App.Hub.Request("LogOn", logInfo, (res) => {
+    MoonService.logOn(logInfo, (res) => {
       if (res.errorCode == 0) {
         App.UserAuth = true;
         App.UserGuid = res.user.userGuid;
@@ -106,20 +107,6 @@ export class LoginForm extends MForm {
       } else
         this.lError.Text = res.errorMessage;
     });
-    /*
-    var xhr = new XMLHttpRequest();
-    xhr.open('PUT', 'myservice/user/1234');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var userInfo = JSON.parse(xhr.responseText);
-        }
-    };
-    xhr.send(JSON.stringify({
-        name: 'John Smith',
-        age: 34
-    }));     
-    */
   }
 
   public ResizeWindow(): void {

@@ -67,6 +67,6 @@ export class MResPanel extends MPlaceHolderPanel {
     super.OnPaint();
     Gpx.FillRect("#789B47", this.gx, this.gy, this.width * this.Percent, this.height);
     //if (this.Odd)
-    Gpx.Text2("#E9F383", "#686A05", this.text, this.gx + 10, this.gy + 24, "22px Roboto");
+    Gpx.Text2("#E9F383", "#686A05", this.text, this.gx + 10, this.gy + 24, "22px CoreRhino-Regular");
   }
 }

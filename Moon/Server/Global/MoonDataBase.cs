@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using UTToolzDb;
 
@@ -39,6 +40,15 @@ namespace Moon
     public string Data { get; set; }
     public DateTime AccessDate { get; set; }
   }
+  public class AuthResult : MoonBaseResponse
+  {
+    public bool IsAuthUser { get; set; }
+    public bool IsAllow { get; set; }
+    public string LoginPath { get; set; }
+    public string UserName { get; set; }
+    public string UserGuid { get; set; }
+  }
+
   public class UserItem
   {
     public Guid UserGuid { get; set; }
@@ -86,7 +96,7 @@ namespace Moon
     {
       _client = new IgsfecClient();
     }
-    public async Task<UserEditResult> LogOn(IHttpContextAccessor _contextAccessor, ISignInManager _signInManager, LogOnData logOnData)
+    public async Task<UserEditResult> LogOn(ISignInManager _signInManager, LogOnData logOnData)
     {
       UserEditResult result = new UserEditResult();
       try
@@ -101,13 +111,34 @@ namespace Moon
           Profile = user.Profile,
           Allow = user.Allow ?? 0
         };
-        //await _signInManager.SignInAsync(result.User);
+        await _signInManager.SignInAsync(result.User);
       }
       catch (Exception ex)
       {
         SetException(result, ex);
       }
       return result;
+    }
+    public AuthResult GetAuthInfo(IHttpContextAccessor httpContextAccessor)
+    {
+      AuthResult authResult = new AuthResult();
+      try
+      {
+        authResult.IsAuthUser = httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+        if (authResult.IsAuthUser)
+        {
+          ClaimsPrincipal user = httpContextAccessor.HttpContext.User;
+          authResult.UserGuid = user.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.NameIdentifier)?.Value;
+          authResult.UserName = user.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.Name)?.Value;
+          if (user.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.Thumbprint) != null)
+            authResult.IsAllow = user.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.Thumbprint).Value == "1";
+        }
+      }
+      catch (Exception ex)
+      {
+        SetException(authResult, ex);
+      }
+      return authResult;
     }
     public async Task<MoonCharListResult> GetMoonCharacterList(Guid UserGuid)
     {
