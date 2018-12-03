@@ -68,6 +68,7 @@ namespace Moon
     public double AwaitTime;
     public string Name;
     public int MobId;
+    public string ItemCode;
     public int TargetId;
     public MoonObjectType TargetType;
     public double RespMobX;
@@ -101,6 +102,7 @@ namespace Moon
     public string AnimateName;
     public MoonDebuffTable Debuffs;
     public PartyInfo Party;
+    public List<QuestNpcInfo> QuestNpcInfo;
 
     public ClientInfo()
     {

@@ -364,9 +364,12 @@ namespace Moon
           {
             PointMob = new MoonPoint(StoreMob.X + PParam2, StoreMob.Y + PParam3);
             NextInstruction();
-            if(this is MoonPlayer && Target is MoonChest)
-              // Подбежали к сундуку, расчет взятия дропа
+            // Подбежали к сундуку, расчет взятия дропа
+            if (this is MoonPlayer && Target is MoonChest)
               (Target as MoonChest).ShiftItems(this as MoonPlayer);
+            // Подбежали к нпс - вступаем в разговор
+            if (this is MoonPlayer && Target is MoonNpc)
+              MoonApplication.Server.SendNpcTalk(this as MoonPlayer, Target as MoonNpc);
             return;
           }
           return;
@@ -651,6 +654,7 @@ namespace Moon
     {
       info.Name = Name;
       info.MobId = MobId;
+      info.ItemCode = ItemCode;
       if (Target != null) {
         info.TargetId = Target.ObjectId;
         info.TargetType = Target.ObjectType;

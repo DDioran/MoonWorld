@@ -13,6 +13,7 @@ import { JsPack, JsXImage } from "./resx";
 import { MouseArgs, MouseExtArgs } from "../mlib/events";
 import { Gpx } from "../mlib/mgfx";
 import { MContextMenu } from "../ui/mcontextmenu";
+import { QuestPanel } from "../panels/quest";
 
 export class MoonPlayField extends MControl {
   public layerZero: Array<Array<number>> = [];

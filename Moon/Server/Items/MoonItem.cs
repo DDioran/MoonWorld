@@ -21,12 +21,13 @@ namespace Moon
     public string ItemCode; // Id вещи в базе
     public MoonGradeType GradeType;
     public MoonItemType ItemType;
-    public decimal Cost;
+    public decimal? Cost;
     public string Name;
     public string Description;
     public bool Stackable;
     public int StackSize;
     public int Quantity;
+    public bool Quest;
     public MoonItem()
     {
       GradeType = MoonGradeType.Common;
@@ -43,6 +44,31 @@ namespace Moon
         Cost = 100,
         Stackable = true,
         StackSize = 100        
+      };
+      MoonApplication.Server.MoonItemList["sword-skel-2-broken-sword"] = new MoonItemCommon
+      {
+        ItemCode = "sword-skel-2-broken-sword",
+        Name = "Прогнивший меч скелета мечника",
+        Description = "Ещё недавно это мог быть отличный меч.",
+        Cost = 100,
+        Stackable = true,
+        StackSize = 100
+      };
+      MoonApplication.Server.MoonItemList["sword-skel-2-sword"] = new MoonItemCommon
+      {
+        ItemCode = "sword-skel-2-sword",
+        Name = "Меч скелета мечника",
+        Description = "Чудом сохранившийся меч.",
+        Stackable = true,
+        StackSize = 100
+      };
+      MoonApplication.Server.MoonItemList["sword-skel-2-skull"] = new MoonItemCommon
+      {
+        ItemCode = "sword-skel-2-sword",
+        Name = "Череп скелета мечника",
+        Description = "Череп как череп...",
+        Stackable = true,
+        StackSize = 100
       };
     }
     public static MoonItem GetItemByCode(string code)

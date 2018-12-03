@@ -1,6 +1,6 @@
 ﻿import { MCounter } from "../mlib/mcounter";
 import { SObjectXY, SObjectList } from "../mlib/sobject";
-import { MoonMobType, PlayerClassType, MoonMobState, MoonObjectType, SkillInfo, SkillState, MoonSkillType, MoonDebuffTable, PartyInfo, ClientInfo, ClientInfoType, PlayerInfo } from "../service/moon-info";
+import { MoonMobType, PlayerClassType, MoonMobState, MoonObjectType, SkillInfo, SkillState, MoonSkillType, MoonDebuffTable, PartyInfo, ClientInfo, ClientInfoType, PlayerInfo, QuestNpcInfo } from "../service/moon-info";
 import { JsPack } from "../global/resx";
 import { App } from "../global/app";
 import { Gpx } from "../mlib/mgfx";
@@ -15,6 +15,7 @@ export class MoonMob extends SObjectXY {
   public Name: string;
   public AwaitTime: number;
   public MobId: number;
+  public ItemCode: string;
   public TargetId: number;
   public TargetType: MoonObjectType;
   public PlayerId: string;
@@ -52,6 +53,7 @@ export class MoonMob extends SObjectXY {
   public AnimateName: string;
   public Debuffs: MoonDebuffTable;
   public Party: PartyInfo;
+  public QuestNpc: Array<QuestNpcInfo>;
   protected respX: number;
   protected respY: number;
   protected storeX: number;
@@ -79,6 +81,7 @@ export class MoonMob extends SObjectXY {
     this.State = MobInfo.state;
     this.AwaitTime = MobInfo.awaitTime;
     this.MobId = MobInfo.mobId;
+    this.ItemCode = MobInfo.itemCode;
     this.TargetId = MobInfo.targetId;
     this.TargetType = MobInfo.targetType;
     this.Level = MobInfo.level;
@@ -88,6 +91,7 @@ export class MoonMob extends SObjectXY {
       this.ClassType = (MobInfo as PlayerInfo).classType;
       this.Exp = (MobInfo as PlayerInfo).exp;
       this.MaxExp = (MobInfo as PlayerInfo).maxExp;
+      this.QuestNpc = (MobInfo as PlayerInfo).questNpcInfo;
     }
     else {
       var a = 0;
@@ -189,15 +193,6 @@ export class MoonMob extends SObjectXY {
     // --
   }
 
-  /*protected CalcDirection() {
-    var px = Math.abs(this.PParam2), py = Math.abs(this.PParam3);
-    var ppx = px / py, ppy = py / px;
-    if (this.PParam2 < 0 && this.PParam3 < 0) if (px > py) this.DirectionView = (ppx) > 2 ? 6 : 7; else this.DirectionView = (ppy) > 2 ? 0 : 7;
-    if (this.PParam2 >= 0 && this.PParam3 < 0) if (px > py) this.DirectionView = (ppx) > 2 ? 2 : 1; else this.DirectionView = (ppy) > 2 ? 0 : 1;
-    if (this.PParam2 >= 0 && this.PParam3 >= 0) if (px > py) this.DirectionView = (ppx) > 2 ? 2 : 3; else this.DirectionView = (ppy) > 2 ? 4 : 3;
-    if (this.PParam2 < 0 && this.PParam3 >= 0) if (px > py) this.DirectionView = (ppx) > 2 ? 6 : 5; else this.DirectionView = (ppy) > 2 ? 4 : 5;
-  }*/
-
   public Dispatcher(): void {
     if (this.Type == MoonMobType.Player) {
       var a = 0;
@@ -285,6 +280,13 @@ export class MoonMob extends SObjectXY {
         color = "red";
         Gpx.DrawFillRect("gray", "yellow", px + spr.cx - 32, py + spr.cy - 40, 64, 5);
         Gpx.FillRect(color, px + spr.cx - 31, py + spr.cy - 39, 62 * this.HP / this.MaxHP, 3);
+      } else {
+        var npcInfo = App.Field.MoonPlayer.QuestNpc.find(n => n.npc == this.ItemCode);
+        if (npcInfo && (npcInfo.offer || npcInfo.complete)) {
+          var qText = `${npcInfo.offer ? '!' : ''}${npcInfo.complete ? '?' : ''}`;
+          width = Gpx.MeasureText(qText, font).width;
+          Gpx.Text("yellow", qText, px + spr.cx - width / 2, py + spr.cy - 45 - 16, "24px Roboto-Bold");
+        }
       }
     }
   }
@@ -302,6 +304,9 @@ export class MoonMobList extends SObjectList {
   }
   public static FindPlayer(PlayerId: string) {
     return App.Field.MoonMobList.ItemList.find(m => (m as MoonMob).PlayerId == PlayerId) as MoonMob;
+  }
+  public static FindMobByCode(ItemCode: string) {
+    return App.Field.MoonMobList.ItemList.find(m => (m as MoonMob).ItemCode == ItemCode) as MoonMob;
   }
 
   public Dispatcher(): void {

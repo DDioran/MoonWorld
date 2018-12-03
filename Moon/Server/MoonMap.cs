@@ -51,6 +51,8 @@ namespace Moon
         // ------------------------------------
         npc = new MoonNpc(this, "test-npc", 1300, 5500);
         npc.Name = "Отшельник";
+        npc.Title = "Поручик лейб-гвардии преображенского полка";
+        npc.Description = "Стою тут всегда. Всегда на страже. А ты кто такой?";
         npc.Level = 50;
         npc.Sprite.SpriteName = "green-knight";
         npc.Sprite.SpriteOY = 30;

@@ -7,6 +7,7 @@ namespace Moon
   public class MoonDropItem
   {
     public double Chance;
+    public string QuestCode;
     public MoonItem Item;
     public int MinQuantity;
     public int MaxQuantity;
@@ -14,7 +15,7 @@ namespace Moon
     {
       Chance = 1;
       MinQuantity = 1;
-      MinQuantity = 3;
+      MaxQuantity = 3;
     }
   }
 
@@ -86,6 +87,20 @@ namespace Moon
           new MoonDropItem
           {
             Item = MoonItem.GetItemByCode("test-drop")
+          },
+          new MoonDropItem
+          {
+            Item = MoonItem.GetItemByCode("sword-skel-2-sword"),
+            QuestCode = "test-quest-1",
+            Chance = 0.2,
+            MaxQuantity = 1
+          },
+          new MoonDropItem
+          {
+            Item = MoonItem.GetItemByCode("sword-skel-2-skull"),
+            QuestCode = "test-quest-2",
+            Chance = 0.1,
+            MaxQuantity = 1
           }
         }
       };

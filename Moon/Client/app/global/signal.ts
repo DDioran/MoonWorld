@@ -5,7 +5,8 @@ import { MChatType } from '../main/chat';
 import { MMessageBox, MessageBoxButton } from '../ui/mmessagebox';
 import { ChestInfo, MoonChestList, MoonChest } from '../objs/chest';
 import { ConnectionLostForm } from '../forms/connlost';
-import { ClientInfo } from '../service/moon-info';
+import { ClientInfo, NpcTalkInfo } from '../service/moon-info';
+import { QuestPanel } from '../panels/quest';
 
 export abstract class MoonSignal {
   public static DoPointEffect(SpriteName: string, s: number, x: number, y: number) {
@@ -66,6 +67,11 @@ export abstract class MoonSignal {
     if (callback) callback(response);
   }
 
+  public static SendNpcTalk(info: NpcTalkInfo) {
+    (new QuestPanel(MoonMobList.FindMobByCode(info.itemCode), info)).Activate();
+  }
+
+
   public static RegisterSignalREvents() {
     App.Hub.Hub.onclose(() => {
       App.Game.ConnLostForm = new ConnectionLostForm();
@@ -120,6 +126,9 @@ export abstract class MoonSignal {
       MoonSignal.Response(id, response);
     });
 
+    App.Hub.Hub.on("SendNpcTalk", (npcTalkInfo) => {
+      MoonSignal.SendNpcTalk(npcTalkInfo);
+    });
 
 
   }

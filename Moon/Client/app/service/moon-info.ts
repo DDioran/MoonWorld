@@ -105,6 +105,7 @@ export class ClientInfo {
   public awaitTime: number;
   public name: string;
   public mobId: number;
+  public itemCode: string;
   public targetId: number;
   public targetType: MoonObjectType;
   public sprite: ClientSprite;
@@ -146,6 +147,7 @@ export class PlayerInfo extends ClientInfo {
   public maxExp: number;
   public playerId: string;
   public active: boolean;
+  public questNpcInfo: Array<QuestNpcInfo>;
 }
 
 export class SkillInfo {
@@ -189,3 +191,24 @@ export class LogOnData {
   public password: string;
 }
 
+export class QuestNpcInfo {
+  public npc: string;
+  public offer: boolean;
+  public complete: boolean;
+}
+
+export class NpcTalkQuestInfo {
+  public itemCode: string;
+  public title: string;
+  public description: string;
+  public experience: number;
+  public coins: number;
+}
+export class NpcTalkInfo {
+  public itemCode: string;
+  public name: string;
+  public title: string;
+  public description: string;
+  public questOfferList: Array<NpcTalkQuestInfo>;
+  public questCompleteList: Array<NpcTalkQuestInfo>;
+}

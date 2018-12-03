@@ -43,6 +43,7 @@ namespace Moon
     public string ConnectionId;
     public MoonParty Party;
     public bool Active;
+    public PlayerQuest Quest;
     MoonParty IMoonPlayer.Party => null;
     public MoonPlayer(MoonMap Map, Guid UserId, Guid ClientId, string ConnectionId)
       : base()
@@ -55,9 +56,11 @@ namespace Moon
       this.Active = true;
       Params = new MoonParameters();
       Characts = new MoonCharacteristic();
+      Quest = new PlayerQuest(this);
       LoadCharacter();
       MoonApplication.Server.MoonPlayers.Add(this);
       SpawnPlayer(Map);
+      Quest.RecalcQuestsInfo();
     }
     public void LoadCharacter()
     {
@@ -176,6 +179,7 @@ namespace Moon
         info.Party.Leader = Party.LeaderId;
         info.Party.Items = Party.Items.ToList();
       }
+      info.QuestNpcInfo = Quest.CreateNpcQuestInfo();
       return info;
     }
 

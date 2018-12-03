@@ -46,6 +46,7 @@ var MoonMob = /** @class */ (function (_super) {
         this.State = MobInfo.state;
         this.AwaitTime = MobInfo.awaitTime;
         this.MobId = MobInfo.mobId;
+        this.ItemCode = MobInfo.itemCode;
         this.TargetId = MobInfo.targetId;
         this.TargetType = MobInfo.targetType;
         this.Level = MobInfo.level;
@@ -55,6 +56,7 @@ var MoonMob = /** @class */ (function (_super) {
             this.ClassType = MobInfo.classType;
             this.Exp = MobInfo.exp;
             this.MaxExp = MobInfo.maxExp;
+            this.QuestNpc = MobInfo.questNpcInfo;
         }
         else {
             var a = 0;
@@ -154,14 +156,6 @@ var MoonMob = /** @class */ (function (_super) {
         return;
         // --
     };
-    /*protected CalcDirection() {
-      var px = Math.abs(this.PParam2), py = Math.abs(this.PParam3);
-      var ppx = px / py, ppy = py / px;
-      if (this.PParam2 < 0 && this.PParam3 < 0) if (px > py) this.DirectionView = (ppx) > 2 ? 6 : 7; else this.DirectionView = (ppy) > 2 ? 0 : 7;
-      if (this.PParam2 >= 0 && this.PParam3 < 0) if (px > py) this.DirectionView = (ppx) > 2 ? 2 : 1; else this.DirectionView = (ppy) > 2 ? 0 : 1;
-      if (this.PParam2 >= 0 && this.PParam3 >= 0) if (px > py) this.DirectionView = (ppx) > 2 ? 2 : 3; else this.DirectionView = (ppy) > 2 ? 4 : 3;
-      if (this.PParam2 < 0 && this.PParam3 >= 0) if (px > py) this.DirectionView = (ppx) > 2 ? 6 : 5; else this.DirectionView = (ppy) > 2 ? 4 : 5;
-    }*/
     MoonMob.prototype.Dispatcher = function () {
         if (this.Type == moon_info_1.MoonMobType.Player) {
             var a = 0;
@@ -201,6 +195,7 @@ var MoonMob = /** @class */ (function (_super) {
         }
     };
     MoonMob.prototype.Paint = function () {
+        var _this = this;
         if (this.Type == moon_info_1.MoonMobType.Player) {
             var a = 0;
         }
@@ -249,6 +244,14 @@ var MoonMob = /** @class */ (function (_super) {
                 mgfx_1.Gpx.DrawFillRect("gray", "yellow", px + spr.cx - 32, py + spr.cy - 40, 64, 5);
                 mgfx_1.Gpx.FillRect(color, px + spr.cx - 31, py + spr.cy - 39, 62 * this.HP / this.MaxHP, 3);
             }
+            else {
+                var npcInfo = app_1.App.Field.MoonPlayer.QuestNpc.find(function (n) { return n.npc == _this.ItemCode; });
+                if (npcInfo && (npcInfo.offer || npcInfo.complete)) {
+                    var qText = "" + (npcInfo.offer ? '!' : '') + (npcInfo.complete ? '?' : '');
+                    width = mgfx_1.Gpx.MeasureText(qText, font).width;
+                    mgfx_1.Gpx.Text("yellow", qText, px + spr.cx - width / 2, py + spr.cy - 45 - 16, "24px Roboto-Bold");
+                }
+            }
         }
     };
     return MoonMob;
@@ -266,6 +269,9 @@ var MoonMobList = /** @class */ (function (_super) {
     };
     MoonMobList.FindPlayer = function (PlayerId) {
         return app_1.App.Field.MoonMobList.ItemList.find(function (m) { return m.PlayerId == PlayerId; });
+    };
+    MoonMobList.FindMobByCode = function (ItemCode) {
+        return app_1.App.Field.MoonMobList.ItemList.find(function (m) { return m.ItemCode == ItemCode; });
     };
     MoonMobList.prototype.Dispatcher = function () {
         _super.prototype.Dispatcher.call(this);

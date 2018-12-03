@@ -6,6 +6,7 @@ var mob_1 = require("../objs/mob");
 var mmessagebox_1 = require("../ui/mmessagebox");
 var chest_1 = require("../objs/chest");
 var connlost_1 = require("../forms/connlost");
+var quest_1 = require("../panels/quest");
 var MoonSignal = /** @class */ (function () {
     function MoonSignal() {
     }
@@ -64,6 +65,9 @@ var MoonSignal = /** @class */ (function () {
         if (callback)
             callback(response);
     };
+    MoonSignal.SendNpcTalk = function (info) {
+        (new quest_1.QuestPanel(mob_1.MoonMobList.FindMobByCode(info.itemCode), info)).Activate();
+    };
     MoonSignal.RegisterSignalREvents = function () {
         app_1.App.Hub.Hub.onclose(function () {
             app_1.App.Game.ConnLostForm = new connlost_1.ConnectionLostForm();
@@ -109,6 +113,9 @@ var MoonSignal = /** @class */ (function () {
         });
         app_1.App.Hub.Hub.on("Method_Response", function (id, response) {
             MoonSignal.Response(id, response);
+        });
+        app_1.App.Hub.Hub.on("SendNpcTalk", function (npcTalkInfo) {
+            MoonSignal.SendNpcTalk(npcTalkInfo);
         });
     };
     return MoonSignal;

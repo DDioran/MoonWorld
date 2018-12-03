@@ -171,4 +171,22 @@ var LogOnData = /** @class */ (function () {
     return LogOnData;
 }());
 exports.LogOnData = LogOnData;
+var QuestNpcInfo = /** @class */ (function () {
+    function QuestNpcInfo() {
+    }
+    return QuestNpcInfo;
+}());
+exports.QuestNpcInfo = QuestNpcInfo;
+var NpcTalkQuestInfo = /** @class */ (function () {
+    function NpcTalkQuestInfo() {
+    }
+    return NpcTalkQuestInfo;
+}());
+exports.NpcTalkQuestInfo = NpcTalkQuestInfo;
+var NpcTalkInfo = /** @class */ (function () {
+    function NpcTalkInfo() {
+    }
+    return NpcTalkInfo;
+}());
+exports.NpcTalkInfo = NpcTalkInfo;
 //# sourceMappingURL=moon-info.js.map
