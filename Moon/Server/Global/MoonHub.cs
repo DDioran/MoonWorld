@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Moon.System.Authorization;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Moon
@@ -19,12 +20,6 @@ namespace Moon
       _enviroment = enviroment;
       _contextAccessor = contextAccessor;
       _signInManager = signInManager;
-    }
-    public async void Method_LogOn(int id, LogOnData logOnData)
-    {
-      /*MoonApplication.Hub = Clients;
-      UserEditResult result = await MoonApplication.Server.Db.LogOn(_contextAccessor, _signInManager, logOnData);
-      await MoonApplication.Hub.Caller.SendAsync("Method_Response", id, result);*/
     }
     public async void Method_InsertMoonCharacter(int id, MoonChar moonChar)
     {
@@ -47,47 +42,54 @@ namespace Moon
     public void RegisterClient(Guid clientId, Guid characterId)
     {
       MoonApplication.Hub = Clients;
-      MoonApplication.Command.Add_RegisterClient(clientId, characterId, Context.ConnectionId);
+      string connectionId = Context.ConnectionId;
+      MoonApplication.Command.Execute(() =>
+      {
+        MoonApplication.Server.RegisterClient(clientId, characterId, connectionId);
+        MoonPlayer player = MoonApplication.Server.MoonPlayers.FirstOrDefault(p => p.ClientId == characterId);
+        player.Initialize();
+        MoonApplication.Hub.Client(connectionId).SendAsync("PlayerRegistered", player.CreatePlayerInfo(new PlayerInfo()));
+      });
     }
     public void DownloadAllObjects(Guid clientId)
     {
-      MoonApplication.Command.Add_DownloadAllObjects(clientId);
+      MoonApplication.Command.Execute(() => MoonApplication.Server.DownloadAllObjects(clientId));
     }
     public void PlayerMoveTo(Guid clientId, double x, double y, int button)
     {
-      MoonApplication.Command.Add_PlayerMoveTo(clientId, x, y, button);
+      MoonApplication.Command.Execute(() => MoonApplication.Server.PlayerMoveTo(clientId, x, y, button));
     }
     public void PlayerSelectTo(Guid clientId, MoonObjectType objectType, int objectId, int button)
     {
-      MoonApplication.Command.Add_PlayerSelectTo(clientId, objectType, objectId, button);
+      MoonApplication.Command.Execute(() => MoonApplication.Server.PlayerSelectTo(clientId, objectType, objectId, button));
     }
     public void KeyOperation(Guid clientId, int keyCode, bool downKey)
     {
-      MoonApplication.Command.Add_KeyOperation(clientId, keyCode, downKey);
+      MoonApplication.Command.Execute(() => MoonApplication.Server.KeyOperation(clientId, keyCode, downKey));
     }
     public void MessageChat(Guid clientId, ChatType chatType, string message)
     {
-      MoonApplication.Command.Add_MessageChat(clientId, chatType, message);
+      MoonApplication.Command.Execute(() => MoonApplication.Server.MessageChat(clientId, chatType, message));
     }
     public void InviteGroup(Guid clientId, Guid memberId)
     {
-      MoonApplication.Command.Add_InviteGroup(clientId, memberId);
+      MoonApplication.Command.Execute(() => MoonApplication.Server.InviteGroup(clientId, memberId));
     }
     public void InviteGroupResponse(Guid clientId, Guid memberId, MessageBoxButton Button)
     {
-      MoonApplication.Command.Add_InviteGroupResponse(clientId, memberId, Button);
+      MoonApplication.Command.Execute(() => MoonApplication.Server.InviteGroupResponse(clientId, memberId, Button));
     }
     public void LeaveGroup(Guid clientId)
     {
-      MoonApplication.Command.Add_LeaveGroup(clientId);
+      MoonApplication.Command.Execute(() => MoonApplication.Server.LeaveGroup(clientId));
     }
     public void RemoveFromGroup(Guid clientId, Guid memberId)
     {
-      MoonApplication.Command.Add_RemoveFromGroup(clientId, memberId);
+      MoonApplication.Command.Execute(() => MoonApplication.Server.RemoveFromGroup(clientId, memberId));
     }
     public void SetLeaderGroup(Guid clientId, Guid memberId)
     {
-      MoonApplication.Command.Add_SetLeaderGroup(clientId, memberId);
+      MoonApplication.Command.Execute(() => MoonApplication.Server.SetLeaderGroup(clientId, memberId));
     }
 
   }

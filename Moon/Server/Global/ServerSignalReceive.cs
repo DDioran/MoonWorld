@@ -6,216 +6,36 @@ using System.Threading;
 
 namespace Moon
 {
-  public enum MoonCommandType
-  {
-    RegisterClient,
-    DownloadAllObjects,
-    MoveTo,
-    SelectTo,
-    KeyOperation,
-    MessageChat,
-    InviteGroup,
-    InviteGroupResponse,
-    LeaveGroup,
-    RemoveFromGroup,
-    SetLeaderGroup
-  }
   public class MoonCommandList
   {
     private readonly object itemLock = new object();
-    public List<MoonCommand> Items;
+    public List<Action> Items;
     public MoonCommandList()
     {
-      Items = new List<MoonCommand>();
+      Items = new List<Action>();
     }
-    private void Add(MoonCommand command)
+    public void Execute(Action callback)
     {
       lock (itemLock)
       {
-        Items.Add(command);
+        Items.Add(callback);
       }
     }
-    public void Add_RegisterClient(Guid clientId, Guid characterId, string connectionId)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.RegisterClient,
-        ClientId = clientId,
-        CharacterId = characterId,
-        ConnectionId = connectionId
-      });
-    }
-    public void Add_DownloadAllObjects(Guid clientId)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.DownloadAllObjects,
-        ClientId = clientId
-      });
-    }
-    public void Add_PlayerMoveTo(Guid clientId, double x, double y, int button)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.MoveTo,
-        ClientId = clientId,
-        X = x,
-        Y = y,
-        Button = button
-      });
-    }
-    public void Add_PlayerSelectTo(Guid clientId, MoonObjectType objectType, int objectId, int button)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.SelectTo,
-        ClientId = clientId,
-        ObjectType = objectType,
-        ObjectId = objectId,
-        Button = button
-      });
-    }
-    public void Add_KeyOperation(Guid clientId, int keyCode, bool downKey)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.KeyOperation,
-        ClientId = clientId,
-        KeyCode = keyCode,
-        DownKey = downKey
-      });
-    }
-    public void Add_MessageChat(Guid clientId, ChatType chatType, string message)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.MessageChat,
-        ClientId = clientId,
-        ChatType = chatType,
-        Message = message
-      });
-    }
-    public void Add_InviteGroup(Guid clientId, Guid MemberId)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.InviteGroup,
-        ClientId = clientId,
-        MemberId = MemberId
-      });
-    }
-    public void Add_InviteGroupResponse(Guid clientId, Guid MemberId, MessageBoxButton Button)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.InviteGroupResponse,
-        ClientId = clientId,
-        MemberId = MemberId,
-        MsgButton = Button
-      });
-    }
-    public void Add_LeaveGroup(Guid clientId)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.LeaveGroup,
-        ClientId = clientId
-      });
-    }
-    public void Add_RemoveFromGroup(Guid clientId, Guid MemberId)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.RemoveFromGroup,
-        ClientId = clientId,
-        MemberId = MemberId
-      });
-    }
-    public void Add_SetLeaderGroup(Guid clientId, Guid MemberId)
-    {
-      Add(new MoonCommand()
-      {
-        CommandType = MoonCommandType.SetLeaderGroup,
-        ClientId = clientId,
-        MemberId = MemberId
-      });
-    }
-    public List<MoonCommand> Receive()
+    public List<Action> Receive()
     {
       lock (itemLock)
       {
-        List<MoonCommand> returnValue = Items.ToList();
+        List<Action> returnValue = Items.ToList();
         Items.Clear();
         return returnValue;
       }
     }
   }
-  public class MoonCommand
-  {
-    public MoonCommandType CommandType;
-    public MessageBoxButton MsgButton;
-    public ChatType ChatType;
-    public string ConnectionId;
-    public string Message;
-    public Guid CharacterId;
-    public Guid ClientId;
-    public Guid MemberId;
-    public MoonObjectType ObjectType;
-    public int ObjectId;
-    public double X;
-    public double Y;
-    public int KeyCode;
-    public bool DownKey;
-    public int Button;
-  }
-
   public partial class MoonServer
   {
     public void DispatchCommand()
     {
-      List<MoonCommand> items = MoonApplication.Command.Receive();
-      items.ForEach(i =>
-      {
-        switch (i.CommandType)
-        {
-          case MoonCommandType.RegisterClient:
-            RegisterClient(i.ClientId, i.CharacterId, i.ConnectionId);
-            MoonPlayer player = MoonPlayers.FirstOrDefault(p => p.ClientId == i.CharacterId);
-            player.Initialize();
-            MoonApplication.Hub.Client(i.ConnectionId).SendAsync("PlayerRegistered", player.CreatePlayerInfo(new PlayerInfo()));
-            break;
-          case MoonCommandType.DownloadAllObjects:
-            DownloadAllObjects(i.ClientId);
-            break;
-          case MoonCommandType.MoveTo:
-            PlayerMoveTo(i.ClientId, i.X, i.Y, i.Button);
-            break;
-          case MoonCommandType.SelectTo:
-            PlayerSelectTo(i.ClientId, i.ObjectType, i.ObjectId, i.Button);
-            break;
-          case MoonCommandType.KeyOperation:
-            KeyOperation(i.ClientId, i.KeyCode, i.DownKey);
-            break;
-          case MoonCommandType.MessageChat:
-            MessageChat(i.ClientId, i.ChatType, i.Message);
-            break;
-          case MoonCommandType.InviteGroup:
-            InviteGroup(i.ClientId, i.MemberId);
-            break;
-          case MoonCommandType.InviteGroupResponse:
-            InviteGroupResponse(i.ClientId, i.MemberId, i.MsgButton);
-            break;
-          case MoonCommandType.LeaveGroup:
-            LeaveGroup(i.ClientId);
-            break;
-          case MoonCommandType.RemoveFromGroup:
-            RemoveFromGroup(i.ClientId, i.MemberId);
-            break;
-          case MoonCommandType.SetLeaderGroup:
-            SetLeaderGroup(i.ClientId, i.MemberId);
-            break;
-        }
-      });
+      MoonApplication.Command.Receive().ForEach(i => i());
     }
     // Регистрация нового клиента
     public void RegisterClient(Guid UserId, Guid ClientId, string ConnectionId)
